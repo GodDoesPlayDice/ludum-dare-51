@@ -1,5 +1,7 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -12,6 +14,14 @@ namespace UI
         [SerializeField] private Button exitGameButton;
         [SerializeField] private Button backButton;
 
+        [Space] [SerializeField] private float groupFadeDuration = .5f;
+        [Space] [SerializeField] private CanvasGroup mainGroup;
+        [SerializeField] private CanvasGroup settingsGroup;
+        [SerializeField] private CanvasGroup creditsGroup;
+        [SerializeField] private CanvasGroup backButtonGroup;
+
+        private CanvasGroup _currentGroup;
+
         private void Awake()
         {
             startGameButton.onClick.AddListener(OnPlayClicked);
@@ -19,10 +29,35 @@ namespace UI
             creditsButton.onClick.AddListener(OnCreditsClicked);
             exitGameButton.onClick.AddListener(OnExitClicked);
             backButton.onClick.AddListener(OnBackPressed);
+            UpdateGroups(mainGroup);
+        }
+
+        private void UpdateGroups(CanvasGroup enabledGroup)
+        {
+            TweenGroup(backButtonGroup, enabledGroup != mainGroup);
+
+            TweenGroup(mainGroup, enabledGroup == mainGroup);
+            TweenGroup(settingsGroup, enabledGroup == settingsGroup);
+            TweenGroup(creditsGroup, enabledGroup == creditsGroup);
+        }
+
+        private void TweenGroup(CanvasGroup group, bool isEnable, Action onCompleteCallback = null)
+        {
+            if (!group.gameObject.activeSelf && isEnable)
+                group.gameObject.SetActive(true);
+            DOTween.To(() => group.alpha, x => group.alpha = x, isEnable ? 1f : 0f, groupFadeDuration)
+                .OnComplete(
+                    () =>
+                    {
+                        if (!isEnable)
+                            group.gameObject.SetActive(false);
+                    }
+                );
         }
 
         private void OnBackPressed()
         {
+            UpdateGroups(mainGroup);
         }
 
         private void OnPlayClicked()
@@ -31,10 +66,12 @@ namespace UI
 
         private void OnSettingsClicked()
         {
+            UpdateGroups(settingsGroup);
         }
 
         private void OnCreditsClicked()
         {
+            UpdateGroups(creditsGroup);
         }
 
         private void OnExitClicked()
