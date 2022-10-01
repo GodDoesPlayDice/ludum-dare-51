@@ -1,3 +1,4 @@
+using System;
 using AI.States;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ namespace AI
 
         [field: Space] [field: SerializeField] public State CurrentState { get; private set; }
 
+        private State _prevState;
+        public event Action<State> OnStateChange;
+
         private void Update()
         {
             RunStateMachine();
@@ -21,13 +25,12 @@ namespace AI
         private void RunStateMachine()
         {
             var nextState = CurrentState?.RunCurrentState();
+            _prevState = CurrentState;
             if (nextState != null)
-                SwitchToNextState(nextState);
-        }
+                CurrentState = nextState;
 
-        private void SwitchToNextState(State nextState)
-        {
-            CurrentState = nextState;
+            if (CurrentState != _prevState)
+                OnStateChange?.Invoke(CurrentState);
         }
     }
 }

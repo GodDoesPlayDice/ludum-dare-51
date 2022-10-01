@@ -15,7 +15,8 @@ public class CharacterAnimations : MonoBehaviour
     protected virtual void Awake()
     {
         Character = GetComponent<Character>();
-        Animator = GetComponent<Animator>();
+        Character.gameObject.TryGetComponent(out Animator);
+        Animator ??= Character.gameObject.GetComponentInChildren<Animator>();
         _prevHealth = Character.Health;
     }
 
