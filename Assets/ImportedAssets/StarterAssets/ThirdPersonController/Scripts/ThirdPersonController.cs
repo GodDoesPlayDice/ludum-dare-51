@@ -130,6 +130,8 @@ namespace StarterAssets
         private void Awake()
         {
             _character = GetComponent<Character>();
+            _character.OnIsAliveChange += isAlive => { _isMovementEnabled = isAlive; };
+
             // get a reference to our main camera
             if (_mainCamera == null)
             {

@@ -68,14 +68,8 @@ public class Character : MonoBehaviour
 
     #endregion
 
-
-    private IMovementController _movementController;
-
-
     private void Awake()
     {
-        _movementController = GetComponent<IMovementController>();
-
         Health = maxHealth;
     }
 
