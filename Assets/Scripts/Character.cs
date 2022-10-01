@@ -68,7 +68,7 @@ public class Character : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected  virtual void Awake()
     {
         Health = maxHealth;
     }
