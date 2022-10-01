@@ -411,8 +411,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AttackState>k__BackingField: {fileID: 1615454644}
-  <MoveState>k__BackingField: {fileID: 0}
-  currentState: {fileID: 0}
+  <MoveState>k__BackingField: {fileID: 981382339}
+  currentState: {fileID: 981382339}
 --- !u!1 &874605735
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,10 +730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a31130dc762401c97c0999aee50ba00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wanderDistance: 5
-  stayAtPointDuration: 1
-  wanderSpeed: 3.5
-  chaseSpeed: 5.5
 --- !u!1 &1028513131
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,6 +960,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  <WanderDistance>k__BackingField: 5
+  <WanderSpeed>k__BackingField: 2
+  <ChaseSpeed>k__BackingField: 4
+  <AttackDistance>k__BackingField: 2
+  <DistToSpotPlayer>k__BackingField: 3
+  <DistToLoosePlayer>k__BackingField: 7
 --- !u!54 &1564801443
 Rigidbody:
   m_ObjectHideFlags: 0

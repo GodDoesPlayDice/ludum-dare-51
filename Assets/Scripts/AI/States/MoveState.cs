@@ -9,30 +9,30 @@ namespace AI.States
     {
         #region Ispector
 
-        [SerializeField] private float wanderDistance = 5f;
-        [SerializeField] [Range(0f, 3f)] private float stayAtPointDuration = 1f;
-
-        [SerializeField] private float wanderSpeed = 3.5f;
-        [SerializeField] private float chaseSpeed = 5.5f;
-
         #endregion
 
         private bool _isGoingToRandomPoint;
-        private NavMeshAgent _agent;
-        private EnemyController _controller;
-        private Character Player => EnemyController.Player;
+        private bool _isChasing;
 
         // for calculations 
         private NavMeshPath _navMeshPath;
         private float _stayAtPointTimer;
 
-        private void Awake()
-        {
-            _agent = GetComponentInParent<NavMeshAgent>();
-        }
-
         public override State RunCurrentState()
         {
+            var distToPlayer = Vector3.Distance(transform.position, Controller.Target);
+            var shouldAttack = distToPlayer <= Controller.AttackDistance && Controller.IsAimedAtPlayer;
+            if (shouldAttack)
+                return StateManager.AttackState;
+
+            var shouldChase = distToPlayer <= Controller.DistToSpotPlayer && !_isChasing ||
+                              distToPlayer <= Controller.DistToSpotPlayer + Controller.DistToLoosePlayer && _isChasing;
+            if (shouldChase)
+            {
+                ChaseTarget();
+                return this;
+            }
+
             Wander();
             return this;
         }
@@ -41,10 +41,10 @@ namespace AI.States
         {
             if (!_isGoingToRandomPoint)
                 GoToRandomPoint();
-            if (_agent.remainingDistance <= 0.1f && _isGoingToRandomPoint)
+            if (Agent.remainingDistance <= 0.1f && _isGoingToRandomPoint)
             {
                 _stayAtPointTimer += Time.deltaTime;
-                if (_stayAtPointTimer > stayAtPointDuration)
+                if (_stayAtPointTimer > 1f)
                 {
                     _stayAtPointTimer = 0f;
                     _isGoingToRandomPoint = false;
@@ -52,8 +52,10 @@ namespace AI.States
             }
         }
 
-        private void ChasePlayer()
+        private void ChaseTarget()
         {
+            Agent.speed = Controller.ChaseSpeed;
+            Agent.SetDestination(Controller.Target);
         }
 
         private void GoToRandomPoint()
@@ -62,13 +64,14 @@ namespace AI.States
             var position = transform.position;
             for (var i = 100f; i > 0; i--)
             {
-                var offset = Random.insideUnitCircle * (wanderDistance + Random.Range(-2f, 2f));
+                var offset = Random.insideUnitCircle * (Controller.WanderDistance + Random.Range(-2f, 2f));
                 var randomPoint = position + new Vector3(offset.x, 0f, offset.y);
-                _agent.CalculatePath(randomPoint, _navMeshPath);
+                Agent.CalculatePath(randomPoint, _navMeshPath);
                 if (_navMeshPath.status == NavMeshPathStatus.PathComplete)
                 {
                     _isGoingToRandomPoint = true;
-                    _agent.SetDestination(randomPoint);
+                    Agent.speed = Controller.WanderSpeed;
+                    Agent.SetDestination(randomPoint);
                     return;
                 }
             }
