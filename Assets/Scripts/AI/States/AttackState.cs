@@ -14,7 +14,7 @@ namespace AI.States
                 Debug.Log("Attacked");
             }
 
-            return StateManager.MoveState;
+            return StateManager.ChaseState;
         }
     }
 }

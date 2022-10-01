@@ -6,9 +6,13 @@ namespace AI
     public class StateManager : MonoBehaviour
     {
         [field: SerializeField] public AttackState AttackState { get; private set; }
-        [field: SerializeField] public MoveState MoveState { get; private set; }
+        [field: SerializeField] public WanderState WanderState { get; private set; }
+        [field: SerializeField] public ChaseState ChaseState { get; private set; }
 
-        [Space] [SerializeField] private State currentState; 
+        [field: SerializeField] public IdleState IdleState { get; private set; }
+
+        [field: Space] [field: SerializeField] public State CurrentState { get; private set; }
+
         private void Update()
         {
             RunStateMachine();
@@ -16,14 +20,14 @@ namespace AI
 
         private void RunStateMachine()
         {
-            var nextState = currentState?.RunCurrentState();
+            var nextState = CurrentState?.RunCurrentState();
             if (nextState != null)
                 SwitchToNextState(nextState);
         }
 
         private void SwitchToNextState(State nextState)
         {
-            currentState = nextState;
+            CurrentState = nextState;
         }
     }
 }

@@ -5,14 +5,9 @@ using Random = UnityEngine.Random;
 
 namespace AI.States
 {
-    public class MoveState : State
+    public class WanderState : State
     {
-        #region Ispector
-
-        #endregion
-
         private bool _isGoingToRandomPoint;
-        private bool _isChasing;
 
         // for calculations 
         private NavMeshPath _navMeshPath;
@@ -20,42 +15,21 @@ namespace AI.States
 
         public override State RunCurrentState()
         {
-            var distToPlayer = Vector3.Distance(transform.position, Controller.Target);
-            var shouldAttack = distToPlayer <= Controller.AttackDistance && Controller.IsAimedAtPlayer;
-            if (shouldAttack)
+            if (Controller.ShouldAttackTarget)
                 return StateManager.AttackState;
 
-            var shouldChase = distToPlayer <= Controller.DistToSpotPlayer && !_isChasing ||
-                              distToPlayer <= Controller.DistToSpotPlayer + Controller.DistToLoosePlayer && _isChasing;
-            if (shouldChase)
-            {
-                ChaseTarget();
-                return this;
-            }
+            if (Controller.ShouldChaseTarget)
+                return StateManager.ChaseState;
 
-            Wander();
-            return this;
-        }
-
-        private void Wander()
-        {
-            if (!_isGoingToRandomPoint)
-                GoToRandomPoint();
             if (Agent.remainingDistance <= 0.1f && _isGoingToRandomPoint)
             {
-                _stayAtPointTimer += Time.deltaTime;
-                if (_stayAtPointTimer > 1f)
-                {
-                    _stayAtPointTimer = 0f;
-                    _isGoingToRandomPoint = false;
-                }
+                _isGoingToRandomPoint = false;
+                return StateManager.IdleState;
             }
-        }
 
-        private void ChaseTarget()
-        {
-            Agent.speed = Controller.ChaseSpeed;
-            Agent.SetDestination(Controller.Target);
+            if (!_isGoingToRandomPoint)
+                GoToRandomPoint();
+            return this;
         }
 
         private void GoToRandomPoint()
