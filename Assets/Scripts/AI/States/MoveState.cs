@@ -5,17 +5,24 @@ using Random = UnityEngine.Random;
 
 namespace AI.States
 {
-    public class WanderState : State
+    public class MoveState : State
     {
         #region Ispector
 
         [SerializeField] private float wanderDistance = 5f;
         [SerializeField] [Range(0f, 3f)] private float stayAtPointDuration = 1f;
 
+        [SerializeField] private float wanderSpeed = 3.5f;
+        [SerializeField] private float chaseSpeed = 5.5f;
+
         #endregion
 
         private bool _isGoingToRandomPoint;
         private NavMeshAgent _agent;
+        private EnemyController _controller;
+        private Character Player => EnemyController.Player;
+
+        // for calculations 
         private NavMeshPath _navMeshPath;
         private float _stayAtPointTimer;
 
@@ -25,6 +32,12 @@ namespace AI.States
         }
 
         public override State RunCurrentState()
+        {
+            Wander();
+            return this;
+        }
+
+        private void Wander()
         {
             if (!_isGoingToRandomPoint)
                 GoToRandomPoint();
@@ -37,8 +50,10 @@ namespace AI.States
                     _isGoingToRandomPoint = false;
                 }
             }
+        }
 
-            return this;
+        private void ChasePlayer()
+        {
         }
 
         private void GoToRandomPoint()

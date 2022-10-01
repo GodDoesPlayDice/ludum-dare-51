@@ -6,8 +6,7 @@ namespace AI
     public class StateManager : MonoBehaviour
     {
         [field: SerializeField] public AttackState AttackState { get; private set; }
-        [field: SerializeField] public ChaseState ChaseState { get; private set; }
-        [field: SerializeField] public WanderState WanderState { get; private set; }
+        [field: SerializeField] public MoveState MoveState { get; private set; }
 
         [Space] [SerializeField] private State currentState; 
         private void Update()

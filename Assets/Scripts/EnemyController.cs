@@ -7,6 +7,17 @@ public class EnemyController : Character
     public NavMeshAgent Agent { get; private set; }
     public Animator Anim { get; private set; }
 
+    public bool IsAimedAtPlayer
+    {
+        get
+        {
+            if (Player == null)
+                return false;
+            var dirToPlayer = (Player.transform.position - transform.position).normalized;
+            return false;
+        }
+    }
+
     protected override void Awake()
     {
         base.Awake();
