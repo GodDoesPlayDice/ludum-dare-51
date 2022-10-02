@@ -113,5 +113,10 @@ namespace UI
         {
             QualitySettings.SetQualityLevel(qualityIndex);
         }
+
+        public void SetSoundSettings(int soundMode)
+        {
+            
+        }
     }
 }
