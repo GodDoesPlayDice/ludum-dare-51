@@ -3,6 +3,7 @@ using DG.Tweening;
 using Sound;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -53,7 +54,6 @@ namespace UI
             if (backButton != null)
                 backButton.onClick.AddListener(OnBackPressed);
 
-
             UpdateGroups(mainGroup);
         }
 
@@ -70,6 +70,8 @@ namespace UI
                 soundSettingDropDown.onValueChanged.AddListener(SetSoundSettings);
                 soundSettingDropDown.value = (int) SoundManager.Instance.CurrentSoundMode;
             }
+
+            LoadingScreenController.Instance.ToggleScreen(false);
         }
 
         private void UpdateGroups(CanvasGroup enabledGroup)
@@ -113,6 +115,11 @@ namespace UI
                 var pauseController = character.GetComponent<PauseController>();
                 pauseController.TogglePause(false);
             }
+            else
+            {
+                LoadingScreenController.Instance.ToggleScreen(true);
+                SceneManager.LoadScene(1);
+            }
         }
 
         private void OnSettingsClicked()
@@ -127,7 +134,16 @@ namespace UI
 
         private void OnExitClicked()
         {
+            var character = GetComponentInParent<Character>();
+            if (character != null)
+            {
+                var pauseController = character.GetComponent<PauseController>();
+                pauseController.TogglePause(false);
+                LoadingScreenController.Instance.ToggleScreen(true);
+                SceneManager.LoadScene(0);
+            }
         }
+
 
         public void SetQuality(int qualityIndex)
         {

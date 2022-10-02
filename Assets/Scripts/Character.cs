@@ -10,7 +10,6 @@ public class Character : MonoBehaviour
         {
             if (!Mathf.Approximately(value, _maxHealth))
                 OnMaxHealthChange?.Invoke(value);
-
             _maxHealth = value;
         }
     }
@@ -81,6 +80,7 @@ public class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
+        MaxHealth = 100f;
         Health = MaxHealth;
     }
 

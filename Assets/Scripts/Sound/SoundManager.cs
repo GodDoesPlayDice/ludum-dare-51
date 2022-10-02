@@ -33,6 +33,22 @@ namespace Sound
                 AudioSource.PlayClipAtPoint(clip, position, volume);
         }
 
+        public void PlaySfxSimple(AudioClip clip, float volume = 1f)
+        {
+            if (CurrentSoundMode is SoundModes.SfxOnly or SoundModes.MusicPlusSfx)
+                sfxSource.PlayOneShot(clip, volume);
+        }
+
+        public void PlayMusic(AudioClip music)
+        {
+            if (CurrentSoundMode is SoundModes.MusicOnly or SoundModes.MusicPlusSfx)
+            {
+                musicSource.clip = music;
+                musicSource.PlayOneShot(music);
+                musicSource.loop = true;
+            }
+        }
+
         public void SetSoundMode(int soundMode)
         {
             CurrentSoundMode = (SoundModes) soundMode;

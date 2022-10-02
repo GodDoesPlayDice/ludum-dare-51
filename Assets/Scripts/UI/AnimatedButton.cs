@@ -1,30 +1,30 @@
 using DG.Tweening;
-using TMPro;
+using Sound;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 
 namespace UI
 {
-    public class AnimatedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler,
-        IPointerMoveHandler
+    public class AnimatedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
+        [SerializeField] private AudioClip onClickSound;
+        [SerializeField] private AudioClip onPointerEnterSound;
+
         [SerializeField] private RectTransform textRectTransform;
         [SerializeField] [Range(1f, 2f)] private float scaleMultiplier = 1.2f;
 
         private Tweener _rotationTweener;
         private Tweener _scaleTweener;
-        private bool _isScaledUp;
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            SoundManager.Instance.PlaySfxSimple(onPointerEnterSound, .3f);
             ScaleUp();
         }
 
         private void ScaleUp()
         {
-            _scaleTweener = textRectTransform.DOScale(Vector3.one * scaleMultiplier, .2f).SetUpdate(true)
-                .OnComplete(() => _isScaledUp = true);
+            _scaleTweener = textRectTransform.DOScale(Vector3.one * scaleMultiplier, .2f).SetUpdate(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -38,15 +38,8 @@ namespace UI
         {
             if (_rotationTweener is {active: true})
                 return;
-            _rotationTweener = textRectTransform.DOPunchRotation(new Vector3(0, 0, 15), 0.4f)
-                .OnComplete(() => _isScaledUp = false);
-        }
-
-        public void OnPointerMove(PointerEventData eventData)
-        {
-            Debug.Log("pointer move");
-            if (!_isScaledUp)
-                ScaleUp();
+            SoundManager.Instance.PlaySfxSimple(onClickSound, .2f);
+            _rotationTweener = textRectTransform.DOPunchRotation(new Vector3(0, 0, 15), 0.4f);
         }
     }
 }
