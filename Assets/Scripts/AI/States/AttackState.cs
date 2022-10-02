@@ -4,14 +4,17 @@ namespace AI.States
 {
     public class AttackState : State
     {
+        public AttackType CurrentAttackType => Random.Range(0, 3) == 0 ? AttackType.Light : AttackType.Heavy;
+
         public override State RunCurrentState()
         {
-            if (EnemyController.Player == null)
-                return StateManager.ChaseState;
-            var player = EnemyController.Player;
-            player.Damage(Controller.LightAttackDamage);
-            Debug.Log(player.Health);
             return StateManager.ChaseState;
         }
+    }
+
+    public enum AttackType
+    {
+        Light,
+        Heavy
     }
 }

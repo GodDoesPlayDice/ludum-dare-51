@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using static UnityEngine.Rendering.DebugUI;
 
 public class WeaponController : MonoBehaviour
 {
-    public WeaponData data;
+    public WeaponData data
+    {
+        get;
+        private set;
+    }
     public bool shooting = true;
 
 
@@ -13,6 +19,13 @@ public class WeaponController : MonoBehaviour
     //private Vector3 currentTarget; // PRIVATE
     //public Transform targetTMP;
     
+
+    public void SetData(WeaponData data)
+    {
+        this.data = data;
+        var main = GetComponent<ParticleSystem>().main;
+        main.startColor = data.orbColor;
+    }
 
     void Start()
     {
@@ -69,7 +82,11 @@ public class WeaponController : MonoBehaviour
     public void OnProjectileCollide(GameObject projectile, GameObject target)
     {
         var enemies = new HashSet<EnemyController>();
-        enemies.Add(target.GetComponent<EnemyController>());
+        if (target.TryGetComponent<EnemyController>(out var enemyCollided))
+        {
+            enemies.Add(enemyCollided);
+        }
+        
         if (data.aoeArea > 0)
         {
             var colliders = Physics.OverlapSphere(projectile.transform.position, data.aoeArea);

@@ -25,6 +25,8 @@ public class CharacterAnimations : MonoBehaviour
     {
         Character.OnHealthChange += health =>
         {
+            if (!Character.IsAlive)
+                return;
             if (health < _prevHealth)
                 Animator.SetTrigger(ReceivedDamage);
 

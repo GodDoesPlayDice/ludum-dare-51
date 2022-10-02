@@ -1,3 +1,6 @@
+using System;
+using Cinemachine;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace AI.States
@@ -6,19 +9,41 @@ namespace AI.States
     {
         // for calculations 
         private NavMeshPath _navMeshPath;
+        private Vector3 _targetPos;
+        private Quaternion _targetRotation;
 
         public override State RunCurrentState()
         {
+            Agent.speed = Controller.ChaseSpeed;
+            _targetPos = Controller.TargetPosition +
+                         (transform.position - Controller.TargetPosition).normalized *
+                         (Controller.AttackDistance - .5f);
+
+            Agent.SetDestination(_targetPos);
+            // rotation towards player 
+            if (Controller.DistToTarget < Controller.AttackDistance)
+            {
+                _targetRotation =
+                    Quaternion.LookRotation((Controller.TargetPosition - Agent.transform.position).normalized);
+                Agent.transform.rotation =
+                    Quaternion.Slerp(Agent.transform.rotation, _targetRotation, 10f * Time.deltaTime);
+            }
+
+
             if (Controller.ShouldAttackTarget)
                 return StateManager.AttackState;
             if (!Controller.ShouldChaseTarget)
                 return StateManager.WanderState;
 
-            Agent.speed = Controller.ChaseSpeed;
-            var targetPos = Controller.TargetPosition +
-                            (transform.position - Controller.TargetPosition).normalized; 
-            Agent.SetDestination(targetPos);
             return this;
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(_targetPos, 0.2f);
+        }
+#endif
     }
 }

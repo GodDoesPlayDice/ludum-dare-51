@@ -17,6 +17,8 @@ namespace StarterAssets
         [Header("Player")] [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
+        [SerializeField] [Range(0, 1f)] private float directMovementBlend = 0.4f;
+
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
@@ -123,6 +125,7 @@ namespace StarterAssets
 
         private Character _character;
         private bool _isMovementEnabled = true;
+        private float _directMoveDelay;
 
         #endregion
 
@@ -271,10 +274,23 @@ namespace StarterAssets
 
                 // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+
+                _directMoveDelay += Time.deltaTime;
+                if (_directMoveDelay > 1f)
+                    _directMoveDelay = 1f;
+            }
+            else
+            {
+                _directMoveDelay -= Time.deltaTime * 2f;
+                if (_directMoveDelay < -.2f)
+                    _directMoveDelay = -.2f;
             }
 
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            var directMovement = transform.forward;
+            targetDirection = Vector3.Lerp(targetDirection, directMovement, directMovementBlend * _directMoveDelay);
+
 
             // move the player
             var moveVelocity = targetDirection.normalized * (_speed * Time.deltaTime) +

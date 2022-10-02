@@ -1,6 +1,7 @@
 using AI;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class EnemyController : Character
 {
@@ -31,6 +32,10 @@ public class EnemyController : Character
     public float AttackDistance { get; private set; } = 2f;
 
     [field: SerializeField]
+    [field: Range(0, 5f)]
+    public float AttackCooldown { get; private set; } = 2f;
+
+    [field: SerializeField]
     [field: Range(0, 30f)]
     public float DistToStartChase { get; private set; } = 10f;
 
@@ -56,7 +61,7 @@ public class EnemyController : Character
                 return false;
             var dirToPlayer = (TargetPosition - transform.position).normalized;
             var dot = Vector3.Dot(transform.forward, dirToPlayer);
-            return dot > 0.5f;
+            return dot > 0.6f;
         }
     }
 
@@ -77,28 +82,32 @@ public class EnemyController : Character
         }
     }
 
-    public bool ShouldAttackTarget
+    public bool CanDealDamage
     {
         get
         {
             var result =
                 DistToTarget <= AttackDistance
                 && IsLookingAtTarget
-                && Player != null && Player.IsAlive
-                && Time.time - _lastAttackTime > 2f;
-            if (result)
-                _lastAttackTime = Time.time;
+                && Player != null && Player.IsAlive;
             return result;
         }
     }
 
+    public bool ShouldAttackTarget
+    {
+        get
+        {
+            var result = CanDealDamage && Time.time - lastAttackTime > AttackCooldown;
+            return result;
+        }
+    }
+
+
+    public float lastAttackTime;
+
     #endregion
 
-    #region PrivateFields
-
-    private float _lastAttackTime;
-
-    #endregion
 
     protected override void Awake()
     {
@@ -113,5 +122,11 @@ public class EnemyController : Character
         // target for enemy is always player
         TargetPosition = Player.transform.position;
         Player.OnVelocityChange += _ => { TargetPosition = Player.transform.position; };
+
+        OnIsAliveChange += isAlive =>
+        {
+            if (!isAlive)
+                Agent.isStopped = true;
+        };
     }
 }
