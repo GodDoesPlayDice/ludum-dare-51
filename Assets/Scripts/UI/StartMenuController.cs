@@ -3,6 +3,9 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 
 namespace UI
 {
@@ -20,7 +23,31 @@ namespace UI
         [SerializeField] private CanvasGroup creditsGroup;
         [SerializeField] private CanvasGroup backButtonGroup;
 
+        [Space] [SerializeField] private TMP_Dropdown resolutionDropdown;
+        private Resolution[] resolutions;
+
         private CanvasGroup _currentGroup;
+
+        private void Start()
+        {
+            resolutions = Screen.resolutions;
+            resolutionDropdown.ClearOptions();
+            List<string> options = new List<string>();
+
+            int currentResolutionIndex = 0;
+            for (int i = 0; i < resolutions.Length; i++)
+            {
+                options.Add(resolutions[i].width + " x " + resolutions[i].height);
+
+                if (resolutions[i].width == Screen.currentResolution.width && 
+                    resolutions[i].height == Screen.currentResolution.height)
+                {
+                    currentResolutionIndex = i;
+                }
+            }
+            resolutionDropdown.AddOptions(options);
+            resolutionDropdown.value = currentResolutionIndex;
+        }
 
         private void Awake()
         {
@@ -78,7 +105,7 @@ namespace UI
         {
         }
 
-        public void SetQuality(int qualityIndex) 
+        public void SetQuality(int qualityIndex)
         {
             QualitySettings.SetQualityLevel(qualityIndex);
         }
