@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,6 +9,10 @@ namespace UI
         public static LoadingScreenController Instance;
 
         private CanvasGroup _canvasGroup;
+
+        public event Action OnShowEnded;
+        public event Action OnHideEnded;
+
 
         private void Awake()
         {
@@ -28,7 +33,15 @@ namespace UI
 
         public void ToggleScreen(bool isEnable)
         {
-            DOTween.To(() => _canvasGroup.alpha, x => _canvasGroup.alpha = x, isEnable ? 1f : 0f, .5f).SetUpdate(true);
+            DOTween.To(() => _canvasGroup.alpha, x => _canvasGroup.alpha = x, isEnable ? 1f : 0f,
+                    isEnable ? 1f : 0.5f)
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    if (!isEnable) return;
+                    OnShowEnded?.Invoke();
+                    OnShowEnded = (Action) Delegate.RemoveAll(OnShowEnded, OnShowEnded);
+                });
         }
     }
 }

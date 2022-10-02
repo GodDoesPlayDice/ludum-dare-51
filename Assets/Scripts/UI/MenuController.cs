@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using Sound;
 using TMPro;
@@ -27,6 +28,9 @@ namespace UI
         [SerializeField] private TMP_Dropdown soundSettingDropDown;
 
         private CanvasGroup _currentGroup;
+        private Character _character;
+        private PauseController _pauseController;
+        private bool isStartMenu => (_character ??= GetComponentInParent<Character>()) == null;
 
 
         public void ToggleWholeScreen(bool isEnable)
@@ -55,9 +59,18 @@ namespace UI
                 backButton.onClick.AddListener(OnBackPressed);
 
             UpdateGroups(mainGroup);
+
+            if (!isStartMenu)
+                _pauseController = _character.GetComponent<PauseController>();
+
+            LoadingScreenController.Instance.OnShowEnded += () =>
+            {
+                var nextSceneIndex = isStartMenu ? 1 : 0;
+                SceneManager.LoadScene(nextSceneIndex);
+            };
         }
 
-        private void Start()
+        private IEnumerator Start()
         {
             if (qualitySettingDropDown != null)
             {
@@ -71,6 +84,7 @@ namespace UI
                 soundSettingDropDown.value = (int) SoundManager.Instance.CurrentSoundMode;
             }
 
+            yield return new WaitForEndOfFrame();
             LoadingScreenController.Instance.ToggleScreen(false);
         }
 
@@ -108,18 +122,10 @@ namespace UI
 
         private void OnPlayClicked()
         {
-            // if this menu is child of the player then esc pause
-            var character = GetComponentInParent<Character>();
-            if (character != null)
-            {
-                var pauseController = character.GetComponent<PauseController>();
-                pauseController.TogglePause(false);
-            }
+            if (!isStartMenu)
+                _pauseController.TogglePause(false);
             else
-            {
                 LoadingScreenController.Instance.ToggleScreen(true);
-                SceneManager.LoadScene(1);
-            }
         }
 
         private void OnSettingsClicked()
@@ -134,16 +140,18 @@ namespace UI
 
         private void OnExitClicked()
         {
-            var character = GetComponentInParent<Character>();
-            if (character != null)
+            if (isStartMenu)
             {
-                var pauseController = character.GetComponent<PauseController>();
-                pauseController.TogglePause(false);
+#if !UNITY_EDITOR
+                Application.Quit();
+#endif
+            }
+            else
+            {
+                _pauseController.TogglePause(false);
                 LoadingScreenController.Instance.ToggleScreen(true);
-                SceneManager.LoadScene(0);
             }
         }
-
 
         public void SetQuality(int qualityIndex)
         {
