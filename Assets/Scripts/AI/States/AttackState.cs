@@ -4,16 +4,13 @@ namespace AI.States
 {
     public class AttackState : State
     {
-        private float _lastAttackTime;
-
         public override State RunCurrentState()
         {
-            if (Time.time - _lastAttackTime > 1f)
-            {
-                _lastAttackTime = Time.time;
-                Debug.Log("Attacked");
-            }
-
+            if (EnemyController.Player == null)
+                return StateManager.ChaseState;
+            var player = EnemyController.Player;
+            player.Damage(Controller.LightAttackDamage);
+            Debug.Log(player.Health);
             return StateManager.ChaseState;
         }
     }
