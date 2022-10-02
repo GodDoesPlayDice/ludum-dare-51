@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sound;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -403,7 +404,8 @@ namespace StarterAssets
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center),
+                    SoundManager.Instance.PlaySfxAtPoint(FootstepAudioClips[index],
+                        transform.TransformPoint(_controller.center),
                         FootstepAudioVolume);
                 }
             }
@@ -413,7 +415,7 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),
+                SoundManager.Instance.PlaySfxAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),
                     FootstepAudioVolume);
             }
         }
