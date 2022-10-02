@@ -15,7 +15,9 @@ namespace AI.States
                 return StateManager.WanderState;
 
             Agent.speed = Controller.ChaseSpeed;
-            Agent.SetDestination(Controller.Target);
+            var targetPos = Controller.TargetPosition +
+                            (transform.position - Controller.TargetPosition).normalized; 
+            Agent.SetDestination(targetPos);
             return this;
         }
     }
