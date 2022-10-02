@@ -8,6 +8,7 @@ public class CharacterAnimations : MonoBehaviour
 
 
     private float _prevHealth;
+    private bool _alreadyDead;
     private static readonly int ReceivedDamage = Animator.StringToHash("ReceivedDamage");
     private static readonly int Death = Animator.StringToHash("Death");
     private static readonly int Revive = Animator.StringToHash("Revive");
@@ -30,6 +31,14 @@ public class CharacterAnimations : MonoBehaviour
             _prevHealth = Character.Health;
         };
 
-        Character.OnIsAliveChange += isAlive => { Animator.SetTrigger(!isAlive ? Death : Revive); };
+        Character.OnIsAliveChange += isAlive =>
+        {
+            if (_alreadyDead && isAlive)
+                _alreadyDead = false;
+            if (_alreadyDead)
+                return;
+            _alreadyDead = !isAlive;
+            Animator.SetTrigger(!isAlive ? Death : Revive);
+        };
     }
 }

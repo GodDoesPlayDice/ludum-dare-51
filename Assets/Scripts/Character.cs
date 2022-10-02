@@ -41,13 +41,13 @@ public class Character : MonoBehaviour
         }
     }
 
-    public Vector3 Target
+    public Vector3 TargetPosition
     {
-        get => _target;
+        get => _targetPosition;
         set
         {
             OnCurrentTargetChange?.Invoke(value);
-            _target = value;
+            _targetPosition = value;
         }
     }
 
@@ -55,7 +55,7 @@ public class Character : MonoBehaviour
     private bool _isAlive = true;
     private float _health;
     private Vector3 _velocity;
-    private Vector3 _target;
+    private Vector3 _targetPosition;
 
     #endregion
 

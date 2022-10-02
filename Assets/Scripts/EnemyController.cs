@@ -7,6 +7,14 @@ public class EnemyController : Character
     #region Inspector
 
     [field: SerializeField]
+    [field: Range(0, 50f)]
+    public float LightAttackDamage { get; private set; } = 5f;
+
+    [field: SerializeField]
+    [field: Range(0, 50f)]
+    public float HeavyAttackDamage { get; private set; } = 10f;
+
+    [field: SerializeField]
     [field: Range(0, 30f)]
     public float WanderDistance { get; private set; } = 5f;
 
@@ -33,6 +41,8 @@ public class EnemyController : Character
 
     #endregion
 
+    #region PublicFields
+
     public static Character Player { get; private set; }
     public NavMeshAgent Agent { get; private set; }
     public Animator Anim { get; private set; }
@@ -44,13 +54,13 @@ public class EnemyController : Character
         {
             if (Player == null)
                 return false;
-            var dirToPlayer = (Target - transform.position).normalized;
+            var dirToPlayer = (TargetPosition - transform.position).normalized;
             var dot = Vector3.Dot(transform.forward, dirToPlayer);
             return dot > 0.5f;
         }
     }
 
-    public float DistToTarget => Vector3.Distance(transform.position, Target);
+    public float DistToTarget => Vector3.Distance(transform.position, TargetPosition);
 
     public bool ShouldChaseTarget
     {
@@ -58,15 +68,37 @@ public class EnemyController : Character
         {
             if (StateManager == null)
                 return false;
-            var shouldChase = DistToTarget <= DistToStartChase &&
-                              StateManager.CurrentState != StateManager.ChaseState ||
-                              DistToTarget <= DistToStartChase + DistToEndChase &&
-                              StateManager.CurrentState == StateManager.ChaseState;
+            var shouldChase = Player != null && Player.IsAlive &&
+                              (DistToTarget <= DistToStartChase &&
+                               StateManager.CurrentState != StateManager.ChaseState ||
+                               DistToTarget <= DistToStartChase + DistToEndChase &&
+                               StateManager.CurrentState == StateManager.ChaseState);
             return shouldChase;
         }
     }
 
-    public bool ShouldAttackTarget => DistToTarget <= AttackDistance && IsLookingAtTarget;
+    public bool ShouldAttackTarget
+    {
+        get
+        {
+            var result =
+                DistToTarget <= AttackDistance
+                && IsLookingAtTarget
+                && Player != null && Player.IsAlive
+                && Time.time - _lastAttackTime > 2f;
+            if (result)
+                _lastAttackTime = Time.time;
+            return result;
+        }
+    }
+
+    #endregion
+
+    #region PrivateFields
+
+    private float _lastAttackTime;
+
+    #endregion
 
     protected override void Awake()
     {
@@ -79,7 +111,7 @@ public class EnemyController : Character
             Player = GameObject.FindWithTag("Player").GetComponent<Character>();
 
         // target for enemy is always player
-        Target = Player.transform.position;
-        Player.OnVelocityChange += _ => { Target = Player.transform.position; };
+        TargetPosition = Player.transform.position;
+        Player.OnVelocityChange += _ => { TargetPosition = Player.transform.position; };
     }
 }
