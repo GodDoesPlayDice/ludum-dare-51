@@ -2,10 +2,7 @@ using System;
 using DG.Tweening;
 using Sound;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI
@@ -56,19 +53,23 @@ namespace UI
             if (backButton != null)
                 backButton.onClick.AddListener(OnBackPressed);
 
-            if (qualitySettingDropDown)
+
+            UpdateGroups(mainGroup);
+        }
+
+        private void Start()
+        {
+            if (qualitySettingDropDown != null)
             {
                 qualitySettingDropDown.onValueChanged.AddListener(SetQuality);
                 qualitySettingDropDown.value = QualitySettings.GetQualityLevel();
             }
 
-            if (soundSettingDropDown)
+            if (soundSettingDropDown != null)
             {
                 soundSettingDropDown.onValueChanged.AddListener(SetSoundSettings);
                 soundSettingDropDown.value = (int) SoundManager.Instance.CurrentSoundMode;
             }
-
-            UpdateGroups(mainGroup);
         }
 
         private void UpdateGroups(CanvasGroup enabledGroup)

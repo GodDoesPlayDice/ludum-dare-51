@@ -404,7 +404,7 @@ namespace StarterAssets
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
-                    SoundManager.Instance.PlayAtPoint(FootstepAudioClips[index],
+                    SoundManager.Instance.PlaySfxAtPoint(FootstepAudioClips[index],
                         transform.TransformPoint(_controller.center),
                         FootstepAudioVolume);
                 }
@@ -415,7 +415,7 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                SoundManager.Instance.PlayAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),
+                SoundManager.Instance.PlaySfxAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),
                     FootstepAudioVolume);
             }
         }
