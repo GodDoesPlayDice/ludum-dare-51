@@ -139,8 +139,13 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 40
   m_MinHeight: 40
+<<<<<<< Updated upstream
   m_PreferredWidth: 1000
   m_PreferredHeight: 100
+=======
+  m_PreferredWidth: 250
+  m_PreferredHeight: 90
+>>>>>>> Stashed changes
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
