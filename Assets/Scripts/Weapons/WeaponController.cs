@@ -31,10 +31,30 @@ public class WeaponController : MonoBehaviour
     public void Shoot(Vector3 target)
     {
         var rotation = Quaternion.LookRotation((target - transform.position).normalized);
-        Instantiate(data.prefab, transform.position, rotation, transform);
+        var projectile = Instantiate(data.prefab, transform.position, rotation, transform);
+        if (projectile.TryGetComponent<ParticleCollisionInstance>(out var coll))
+        {
+            coll.weaponController = this;
+        }
     }
 
-    public void OnProjectileCollide(GameObject target)
+    public void OnProjectileCollide(GameObject projectile, GameObject target)
     {
+        var enemies = new HashSet<EnemyController>();
+        var enemy = target.GetComponent<EnemyController>();
+        enemies.Add(enemy);
+        if (data.aoeArea > 0)
+        {
+            var colliders = Physics.OverlapSphere(projectile.transform.position, data.aoeArea);
+            foreach(var coll in colliders)
+            {
+                EnemyController enemyInRadius = null;
+                if (coll.gameObject.TryGetComponent<EnemyController>(out enemyInRadius))
+                {
+                    enemies.Add(enemyInRadius);
+                }
+            }
+        }
+        
     }
 }

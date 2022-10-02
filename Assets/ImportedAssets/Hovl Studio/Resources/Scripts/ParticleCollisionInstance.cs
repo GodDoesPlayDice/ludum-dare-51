@@ -26,7 +26,7 @@ public class ParticleCollisionInstance : MonoBehaviour
     }
     void OnParticleCollision(GameObject other)
     {
-        weaponController.OnProjectileCollide(other);
+        weaponController.OnProjectileCollide(gameObject, other);
 
         int numCollisionEvents = part.GetCollisionEvents(other, collisionEvents);     
         for (int i = 0; i < numCollisionEvents; i++)
