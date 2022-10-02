@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +10,7 @@ namespace AI.States
         // for calculations 
         private NavMeshPath _navMeshPath;
         private Vector3 _targetPos;
+        private Quaternion _targetRotation;
 
         public override State RunCurrentState()
         {
@@ -19,10 +21,13 @@ namespace AI.States
 
             Agent.SetDestination(_targetPos);
             // rotation towards player 
-            // var targetRotation =
-            //     Quaternion.LookRotation((Controller.TargetPosition - Agent.transform.position).normalized);
-            // Agent.transform.rotation =
-            //     Quaternion.Slerp(Agent.transform.rotation, targetRotation, 5f * Time.deltaTime);
+            if (Controller.DistToTarget < Controller.AttackDistance)
+            {
+                _targetRotation =
+                    Quaternion.LookRotation((Controller.TargetPosition - Agent.transform.position).normalized);
+                Agent.transform.rotation =
+                    Quaternion.Slerp(Agent.transform.rotation, _targetRotation, 10f * Time.deltaTime);
+            }
 
 
             if (Controller.ShouldAttackTarget)
