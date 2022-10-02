@@ -7,6 +7,8 @@ public class WeaponData : ScriptableObject
 {
     public string name;
     public string description;
+    public bool purchased;
+    public int currentLvl = 0;
     public int cost;
     public float damage;
     public float coolDown;

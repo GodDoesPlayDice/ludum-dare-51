@@ -33,4 +33,8 @@ public class WeaponController : MonoBehaviour
         var rotation = Quaternion.LookRotation((target - transform.position).normalized);
         Instantiate(data.prefab, transform.position, rotation, transform);
     }
+
+    public void OnProjectileCollide(GameObject target)
+    {
+    }
 }
