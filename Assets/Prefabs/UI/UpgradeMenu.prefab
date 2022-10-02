@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 3240122368608096552}
   - component: {fileID: 9088547215330242124}
   - component: {fileID: 1417774706565863001}
+  - component: {fileID: 1781076195159828051}
   m_Layer: 5
   m_Name: UpgradeMenu
   m_TagString: Untagged
@@ -439,6 +440,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1781076195159828051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2238004062798258836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab9fe6033a6d88409d6411779625657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2967241459943175079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1632,6 +1645,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9055254014245993411}
     m_Modifications:
+    - target: {fileID: 2622791657700671365, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622791657700671365, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622791657700671365, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622791657700671365, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622791657700671365, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2877633101251932457, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1735,6 +1773,51 @@ PrefabInstance:
     - target: {fileID: 2877633101251932457, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455088494088115663, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455088494088115663, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455088494088115663, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3455088494088115663, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058788931303976413, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058788931303976413, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058788931303976413, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058788931303976413, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4058788931303976413, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8919419078299387675, guid: e0d09adbceeb98843a6fce6fc3d1cafd,
