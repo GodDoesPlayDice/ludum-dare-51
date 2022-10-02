@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using Sound;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.UI;
@@ -57,12 +58,15 @@ namespace UI
 
             if (qualitySettingDropDown)
             {
-                
                 qualitySettingDropDown.onValueChanged.AddListener(SetQuality);
                 qualitySettingDropDown.value = QualitySettings.GetQualityLevel();
             }
+
             if (soundSettingDropDown)
-                qualitySettingDropDown.onValueChanged.AddListener(SetSoundSettings);
+            {
+                soundSettingDropDown.onValueChanged.AddListener(SetSoundSettings);
+                soundSettingDropDown.value = (int) SoundManager.Instance.CurrentSoundMode;
+            }
 
             UpdateGroups(mainGroup);
         }
@@ -131,6 +135,7 @@ namespace UI
 
         public void SetSoundSettings(int soundMode)
         {
+            SoundManager.Instance.SetSoundMode(soundMode);
         }
     }
 }
