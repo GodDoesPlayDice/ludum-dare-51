@@ -929,6 +929,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 51658677424399928, guid: bcfa79c3309d44c5d9db0119913db7bd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 51658677424399929, guid: bcfa79c3309d44c5d9db0119913db7bd,
         type: 3}
       propertyPath: m_RootOrder
@@ -3292,6 +3297,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606592030938010044, guid: aecbfec3f73c44a078c9e1a3b6209923,
+        type: 3}
+      propertyPath: directMovementBlend
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aecbfec3f73c44a078c9e1a3b6209923, type: 3}
