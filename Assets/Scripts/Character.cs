@@ -26,6 +26,7 @@ public class Character : MonoBehaviour
         get => _health;
         private set
         {
+            Debug.Log(value);
             OnHealthChange?.Invoke(value);
             _health = value;
         }

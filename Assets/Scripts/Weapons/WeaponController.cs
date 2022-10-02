@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WeaponController : MonoBehaviour
@@ -10,7 +11,7 @@ public class WeaponController : MonoBehaviour
 
     private float prevShootTime = 0f;
     //private Vector3 currentTarget; // PRIVATE
-    public Transform targetTMP;
+    //public Transform targetTMP;
     
 
     void Start()
@@ -22,10 +23,37 @@ public class WeaponController : MonoBehaviour
     {
         if (prevShootTime + data.coolDown <= Time.time)
         {
-            prevShootTime = Time.time;
-            //Shoot(currentTarget);
-            Shoot(targetTMP.position);
+            // TODO: Calculates every frame if not cooldown. Should be reworked!!!
+            var target = GetTargetForShoot();
+            if (target != null)
+            {
+                prevShootTime = Time.time;
+                //Shoot(currentTarget);
+                Shoot(target.transform.position);
+            }
         }
+    }
+
+    private GameObject GetTargetForShoot()
+    {
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 0)
+        {
+            return null;
+        }
+
+        var closest = enemies[0];
+        var closestDist = Vector3.Distance(transform.position, closest.transform.position);
+        foreach (var enemy in enemies)
+        {
+            var dist = Vector3.Distance(transform.position, enemy.transform.position);
+            if (dist < closestDist)
+            {
+                closest = enemy;
+                closestDist = dist;
+            }
+        }
+        return closestDist <= data.distance ? closest : null;
     }
 
     public void Shoot(Vector3 target)
@@ -41,12 +69,11 @@ public class WeaponController : MonoBehaviour
     public void OnProjectileCollide(GameObject projectile, GameObject target)
     {
         var enemies = new HashSet<EnemyController>();
-        var enemy = target.GetComponent<EnemyController>();
-        enemies.Add(enemy);
+        enemies.Add(target.GetComponent<EnemyController>());
         if (data.aoeArea > 0)
         {
             var colliders = Physics.OverlapSphere(projectile.transform.position, data.aoeArea);
-            foreach(var coll in colliders)
+            foreach (var coll in colliders)
             {
                 EnemyController enemyInRadius = null;
                 if (coll.gameObject.TryGetComponent<EnemyController>(out enemyInRadius))
@@ -54,6 +81,10 @@ public class WeaponController : MonoBehaviour
                     enemies.Add(enemyInRadius);
                 }
             }
+        }
+        foreach (var enemy in enemies)
+        {
+            enemy.Damage(data.damage);
         }
         
     }
