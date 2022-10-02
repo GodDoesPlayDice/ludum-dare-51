@@ -1,6 +1,8 @@
 using System;
 using DG.Tweening;
+using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -21,6 +23,9 @@ namespace UI
         [SerializeField] private CanvasGroup creditsGroup;
         [SerializeField] private CanvasGroup backButtonGroup;
         [SerializeField] private CanvasGroup wholeScreenGroup;
+
+        [Space] [SerializeField] private TMP_Dropdown qualitySettingDropDown;
+        [SerializeField] private TMP_Dropdown soundSettingDropDown;
 
         private CanvasGroup _currentGroup;
 
@@ -49,6 +54,16 @@ namespace UI
                 exitButton.onClick.AddListener(OnExitClicked);
             if (backButton != null)
                 backButton.onClick.AddListener(OnBackPressed);
+
+            if (qualitySettingDropDown)
+            {
+                
+                qualitySettingDropDown.onValueChanged.AddListener(SetQuality);
+                qualitySettingDropDown.value = QualitySettings.GetQualityLevel();
+            }
+            if (soundSettingDropDown)
+                qualitySettingDropDown.onValueChanged.AddListener(SetSoundSettings);
+
             UpdateGroups(mainGroup);
         }
 
@@ -108,10 +123,14 @@ namespace UI
         private void OnExitClicked()
         {
         }
-        
+
         public void SetQuality(int qualityIndex)
         {
             QualitySettings.SetQualityLevel(qualityIndex);
+        }
+
+        public void SetSoundSettings(int soundMode)
+        {
         }
     }
 }
