@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class EnemyAnimations : CharacterAnimations
 {
+    private EnemyController _controller;
     private StateManager _stateManager;
     private AttackState _attackState;
     private float _targetSpeed;
+    private bool _isDead;
 
     private static readonly int LightAttack = Animator.StringToHash("LightAttack");
     private static readonly int HeavyAttack = Animator.StringToHash("HeavyAttack");
@@ -16,6 +18,7 @@ public class EnemyAnimations : CharacterAnimations
     protected override void Awake()
     {
         base.Awake();
+        _controller = GetComponent<EnemyController>();
         _stateManager = GetComponentInChildren<StateManager>();
         _attackState = _stateManager.GetComponentInChildren<AttackState>();
         _stateManager.OnStateChange += OnStateChange;
