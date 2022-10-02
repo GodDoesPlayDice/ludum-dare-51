@@ -23,13 +23,15 @@ namespace UI
 
         private void UpdateHealth(float health)
         {
-            healthSlider.value = health / _character.MaxHealth;
+            if (_character.MaxHealth != 0)
+                healthSlider.value = health / _character.MaxHealth;
             healthText.text = $"{health}/{_character.MaxHealth}";
         }
 
         private void UpdateMaxHealth(float maxHealth)
         {
-            healthSlider.value = _character.Health / maxHealth;
+            if (maxHealth != 0)
+                healthSlider.value = _character.Health / maxHealth;
             healthText.text = $"{_character.Health}/{maxHealth}";
         }
     }
