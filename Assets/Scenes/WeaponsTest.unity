@@ -365,7 +365,7 @@ PrefabInstance:
     - target: {fileID: 51658677424399929, guid: bcfa79c3309d44c5d9db0119913db7bd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.971486
+      value: 3.3651214
       objectReference: {fileID: 0}
     - target: {fileID: 51658677424399929, guid: bcfa79c3309d44c5d9db0119913db7bd,
         type: 3}
@@ -537,7 +537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ef2add37f9d2649a2ef9815925ca58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: bd99f1f28e973c1498aea9db04053ff1, type: 2}
   shooting: 1
 --- !u!135 &1699406337
 SphereCollider:
@@ -857,11 +856,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5413783333816237350, guid: ae2dd021dc04537419a59e57fd3f445a,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7652568172885847704, guid: ae2dd021dc04537419a59e57fd3f445a,
         type: 3}
       propertyPath: m_RootOrder

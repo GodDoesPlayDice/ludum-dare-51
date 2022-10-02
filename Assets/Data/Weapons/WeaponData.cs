@@ -14,5 +14,6 @@ public class WeaponData : ScriptableObject
     public float coolDown;
     public float distance = 10;
     public float aoeArea;
+    public Color orbColor;
     public GameObject prefab;
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,16 @@ public class WeaponsManager : MonoBehaviour
     public GameObject weaponPrefab;
     public Character targetToFollow;
     public Vector3 positionOffset;
+    public float minMovementTime = 1f;
+    public float maxMovementTime = 3f;
 
     private HashSet<WeaponData> currentWeapons = new HashSet<WeaponData>();
 
+    private BoxCollider boxCollider;
+
     void Start()
     {
+        boxCollider = GetComponent<BoxCollider>();
         AddWeapon(defaultWeapon);
     }
 
@@ -34,7 +40,9 @@ public class WeaponsManager : MonoBehaviour
             GameObject.Destroy(weaponObject);
         }
         var instance = CreateWeaponInstance();
-        instance.GetComponent<WeaponController>().data = weapon;
+        var wController = instance.GetComponent<WeaponController>();
+        wController.SetData(weapon);
+        StartOrbMovement(wController);
     }
 
     private GameObject CreateWeaponInstance()
@@ -42,5 +50,15 @@ public class WeaponsManager : MonoBehaviour
         var result = GameObject.Instantiate(weaponPrefab, transform.position, transform.rotation, transform);
 
         return result;
+    }
+
+    private void StartOrbMovement(WeaponController orb)
+    {
+        var bnd = boxCollider.size / 2;
+        var dest = new Vector3(Random.Range(-bnd.x, bnd.x),
+            Random.Range(-bnd.y, bnd.y), Random.Range(-bnd.z, bnd.z));
+        orb.gameObject.transform.DOLocalMove(dest, Random.Range(minMovementTime, maxMovementTime))
+            .SetEase(Ease.InOutSine)
+            .OnComplete(() => StartOrbMovement(orb));
     }
 }
