@@ -1726,6 +1726,8 @@ MonoBehaviour:
   creditsGroup: {fileID: 0}
   backButtonGroup: {fileID: 7422880756477993730}
   wholeScreenGroup: {fileID: 935572593586908605}
+  qualitySettingDropDown: {fileID: 3131707312553234069}
+  soundSettingDropDown: {fileID: 5609455401288374858}
 --- !u!1 &7422880756477993735
 GameObject:
   m_ObjectHideFlags: 0
@@ -2072,3 +2074,27 @@ CanvasGroup:
     type: 3}
   m_PrefabInstance: {fileID: 4482862384078331566}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3131707312553234069 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1531325728904810555, guid: aebe10b62053c418e9e625742d0d37c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4482862384078331566}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5609455401288374858 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8353784104160036068, guid: aebe10b62053c418e9e625742d0d37c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4482862384078331566}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
