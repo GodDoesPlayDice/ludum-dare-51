@@ -3,34 +3,33 @@ using UnityEngine;
 
 public class CharacterAnimations : MonoBehaviour
 {
-    private Character _character;
-    private Animator _animator;
+    protected Character Character;
+    protected Animator Animator;
 
 
     private float _prevHealth;
-
-
     private static readonly int ReceivedDamage = Animator.StringToHash("ReceivedDamage");
     private static readonly int Death = Animator.StringToHash("Death");
     private static readonly int Revive = Animator.StringToHash("Revive");
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        _character = GetComponent<Character>();
-        _animator = GetComponent<Animator>();
-        _prevHealth = _character.Health;
+        Character = GetComponent<Character>();
+        Character.gameObject.TryGetComponent(out Animator);
+        Animator ??= Character.gameObject.GetComponentInChildren<Animator>();
+        _prevHealth = Character.Health;
     }
 
     private void Start()
     {
-        _character.OnHealthChange += health =>
+        Character.OnHealthChange += health =>
         {
             if (health < _prevHealth)
-                _animator.SetTrigger(ReceivedDamage);
+                Animator.SetTrigger(ReceivedDamage);
 
-            _prevHealth = _character.Health;
+            _prevHealth = Character.Health;
         };
 
-        _character.OnIsAliveChange += isAlive => { _animator.SetTrigger(!isAlive ? Death : Revive); };
+        Character.OnIsAliveChange += isAlive => { Animator.SetTrigger(!isAlive ? Death : Revive); };
     }
 }

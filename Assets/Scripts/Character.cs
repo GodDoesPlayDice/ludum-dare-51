@@ -41,13 +41,13 @@ public class Character : MonoBehaviour
         }
     }
 
-    public Vector3 CurrentTarget
+    public Vector3 Target
     {
-        get => _currentTarget;
+        get => _target;
         set
         {
             OnCurrentTargetChange?.Invoke(value);
-            _currentTarget = value;
+            _target = value;
         }
     }
 
@@ -55,7 +55,7 @@ public class Character : MonoBehaviour
     private bool _isAlive = true;
     private float _health;
     private Vector3 _velocity;
-    private Vector3 _currentTarget;
+    private Vector3 _target;
 
     #endregion
 
@@ -68,7 +68,7 @@ public class Character : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected  virtual void Awake()
     {
         Health = maxHealth;
     }
