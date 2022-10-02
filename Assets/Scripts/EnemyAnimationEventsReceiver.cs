@@ -10,7 +10,7 @@ public class EnemyAnimationEventsReceiver : MonoBehaviour
     private void Awake()
     {
         _controller = GetComponentInParent<EnemyController>();
-        _attackState = _controller.GetComponentInChildren<AttackState>();
+        _attackState = _controller.GetComponentInChildren<AttackState>(); 
     }
 
     public void DealAttackDamage()

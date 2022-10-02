@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7652568172885847704}
   - component: {fileID: 7652568172885847707}
+  - component: {fileID: 5413783333816237350}
   m_Layer: 0
   m_Name: WeaponsManager
   m_TagString: Untagged
@@ -46,8 +47,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allWeapons:
   - {fileID: 11400000, guid: bd99f1f28e973c1498aea9db04053ff1, type: 2}
+  - {fileID: 11400000, guid: a8864a72898cfc3488856e956e60c414, type: 2}
   defaultWeapon: {fileID: 11400000, guid: bd99f1f28e973c1498aea9db04053ff1, type: 2}
   weaponPrefab: {fileID: 8504533883644135084, guid: 0ed682cbfbc68c049b8a7abfe3236502,
     type: 3}
   targetToFollow: {fileID: 0}
   positionOffset: {x: 0, y: 3, z: 0}
+  minMovementTime: 2
+  maxMovementTime: 3
+--- !u!65 &5413783333816237350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7652568172885847706}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1, z: 1.5}
+  m_Center: {x: 0, y: 0, z: 0}

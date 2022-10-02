@@ -122,5 +122,11 @@ public class EnemyController : Character
         // target for enemy is always player
         TargetPosition = Player.transform.position;
         Player.OnVelocityChange += _ => { TargetPosition = Player.transform.position; };
+
+        OnIsAliveChange += isAlive =>
+        {
+            if (!isAlive)
+                Agent.isStopped = true;
+        };
     }
 }

@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 51658677424399874}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,8 +136,10 @@ MonoBehaviour:
   <WanderSpeed>k__BackingField: 2
   <ChaseSpeed>k__BackingField: 4
   <AttackDistance>k__BackingField: 2
+  <AttackCooldown>k__BackingField: 2
   <DistToStartChase>k__BackingField: 10
   <DistToEndChase>k__BackingField: 5
+  lastAttackTime: 0
 --- !u!114 &51658677424399874
 MonoBehaviour:
   m_ObjectHideFlags: 0

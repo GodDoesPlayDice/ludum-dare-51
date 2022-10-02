@@ -21,7 +21,7 @@ namespace UI
         {
             if (_pointerEnterTweener is {active: true})
                 return;
-            _pointerEnterTweener = textRectTransform.DOPunchScale(Vector3.one * 0.1f, duration, vibrato, elasticity);
+            _pointerEnterTweener = textRectTransform.DOPunchScale(Vector3.one * 0.1f, duration, vibrato, elasticity).SetUpdate(true);
         }
     }
 }
