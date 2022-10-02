@@ -63,6 +63,7 @@ namespace UI
             if (!isStartMenu)
                 _pauseController = _character.GetComponent<PauseController>();
 
+            LoadingScreenController.Instance.OnHideEnded += () => { };
             LoadingScreenController.Instance.OnShowEnded += () =>
             {
                 var nextSceneIndex = isStartMenu ? 1 : 0;
@@ -125,7 +126,10 @@ namespace UI
             if (!isStartMenu)
                 _pauseController.TogglePause(false);
             else
+            {
+                SoundManager.Instance.SwapMusicTrack(SoundManager.Instance.gameplayMusic);
                 LoadingScreenController.Instance.ToggleScreen(true);
+            }
         }
 
         private void OnSettingsClicked()
@@ -149,6 +153,7 @@ namespace UI
             else
             {
                 _pauseController.TogglePause(false);
+                SoundManager.Instance.SwapMusicTrack(SoundManager.Instance.menuMusic);
                 LoadingScreenController.Instance.ToggleScreen(true);
             }
         }
