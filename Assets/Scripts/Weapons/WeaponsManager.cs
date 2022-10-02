@@ -1,16 +1,17 @@
+using System;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class WeaponsManager : MonoBehaviour
 {
     public WeaponData[] allWeapons;
     public WeaponData defaultWeapon;
     public GameObject weaponPrefab;
-    public Character targetToFollow;
     public Vector3 positionOffset;
     public float minMovementTime = 1f;
     public float maxMovementTime = 3f;
@@ -18,6 +19,12 @@ public class WeaponsManager : MonoBehaviour
     private HashSet<WeaponData> currentWeapons = new HashSet<WeaponData>();
 
     private BoxCollider boxCollider;
+    private Character _targetToFollow;
+
+    private void Awake()
+    {
+        _targetToFollow = GameObject.FindWithTag("Player").GetComponent<Character>(); 
+    }
 
     void Start()
     {
@@ -28,7 +35,7 @@ public class WeaponsManager : MonoBehaviour
     void Update()
     {
         // TODO: Smooth movement
-        transform.position = targetToFollow.gameObject.transform.position + positionOffset;
+        transform.position = _targetToFollow.gameObject.transform.position + positionOffset;
     }
 
     public void AddWeapon(WeaponData weapon)
