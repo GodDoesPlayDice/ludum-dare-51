@@ -17,7 +17,9 @@ MonoBehaviour:
   purchased: 1
   currentLvl: 1
   cost: 0
+  upgradeCost: 1
   damage: 3
+  upgradeDamage: 1
   coolDown: 0.5
   distance: 10
   aoeArea: 0

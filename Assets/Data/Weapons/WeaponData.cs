@@ -10,7 +10,9 @@ public class WeaponData : ScriptableObject
     public bool purchased;
     public int currentLvl = 0;
     public int cost;
+    public int upgradeCost;
     public float damage;
+    public float upgradeDamage;
     public float coolDown;
     public float distance = 10;
     public float aoeArea;
