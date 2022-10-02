@@ -2,26 +2,19 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 namespace UI
 {
-<<<<<<< Updated upstream
-    public class AnimatedButton : MonoBehaviour, IPointerEnterHandler
-=======
-    public class AnimatedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
->>>>>>> Stashed changes
+    public class AnimatedButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler,
+        IPointerMoveHandler
     {
         [SerializeField] private RectTransform textRectTransform;
+        [SerializeField] [Range(1f, 2f)] private float scaleMultiplier = 1.2f;
 
-<<<<<<< Updated upstream
-        [Space] [Header("On Pointer Enter")] [SerializeField]
-        private float duration = 1f;
-
-        [SerializeField] private int vibrato = 5;
-        [SerializeField] private float elasticity = 2f;
-=======
         private Tweener _rotationTweener;
         private Tweener _scaleTweener;
+        private bool _isScaledUp;
 
         public void OnPointerEnter(PointerEventData eventData)
         {
@@ -30,21 +23,30 @@ namespace UI
 
         private void ScaleUp()
         {
-            _scaleTweener = textRectTransform.DOScale(Vector3.one * scaleMultiplier, .2f).SetUpdate(true);
+            _scaleTweener = textRectTransform.DOScale(Vector3.one * scaleMultiplier, .2f).SetUpdate(true)
+                .OnComplete(() => _isScaledUp = true);
         }
->>>>>>> Stashed changes
 
-        [Space] private Tweener _pointerEnterTweener;
-
-        public void OnPointerEnter(PointerEventData eventData)
+        public void OnPointerExit(PointerEventData eventData)
         {
-            if (_pointerEnterTweener is {active: true})
+            if (_scaleTweener is {active: true})
+                _scaleTweener.Kill();
+            textRectTransform.DOScale(Vector3.one, 0.1f).SetUpdate(true);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (_rotationTweener is {active: true})
                 return;
-<<<<<<< Updated upstream
-            _pointerEnterTweener = textRectTransform.DOPunchScale(Vector3.one * 0.1f, duration, vibrato, elasticity).SetUpdate(true);
-=======
-            _rotationTweener = textRectTransform.DOPunchRotation(new Vector3(0, 0, 15), 0.4f);
->>>>>>> Stashed changes
+            _rotationTweener = textRectTransform.DOPunchRotation(new Vector3(0, 0, 15), 0.4f)
+                .OnComplete(() => _isScaledUp = false);
+        }
+
+        public void OnPointerMove(PointerEventData eventData)
+        {
+            Debug.Log("pointer move");
+            if (!_isScaledUp)
+                ScaleUp();
         }
     }
 }
