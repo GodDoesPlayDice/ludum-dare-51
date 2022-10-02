@@ -108,5 +108,10 @@ namespace UI
         private void OnExitClicked()
         {
         }
+        
+        public void SetQuality(int qualityIndex)
+        {
+            QualitySettings.SetQualityLevel(qualityIndex);
+        }
     }
 }
