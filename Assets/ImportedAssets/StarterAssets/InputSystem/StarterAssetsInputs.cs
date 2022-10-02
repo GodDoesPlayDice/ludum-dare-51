@@ -11,6 +11,7 @@ namespace StarterAssets
 		public Vector2 move;
 		public Vector2 look;
 		public bool jump;
+		public bool esc;
 		public bool sprint;
 
 		[Header("Movement Settings")]
@@ -32,6 +33,11 @@ namespace StarterAssets
 			{
 				LookInput(value.Get<Vector2>());
 			}
+		}
+		
+		public void OnEsc(InputValue value)
+		{
+			EscInput(value.isPressed);
 		}
 
 		public void OnJump(InputValue value)
@@ -61,6 +67,11 @@ namespace StarterAssets
 			jump = newJumpState;
 		}
 
+		private void EscInput(bool newEscState)
+		{
+			esc = newEscState;
+		}
+
 		public void SprintInput(bool newSprintState)
 		{
 			sprint = newSprintState;
@@ -68,7 +79,7 @@ namespace StarterAssets
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
-			SetCursorState(cursorLocked);
+			// SetCursorState(cursorLocked);
 		}
 
 		private void SetCursorState(bool newState)
