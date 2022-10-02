@@ -63,7 +63,6 @@ namespace UI
             if (!isStartMenu)
                 _pauseController = _character.GetComponent<PauseController>();
 
-            LoadingScreenController.Instance.OnHideEnded += () => { };
             LoadingScreenController.Instance.OnShowEnded += () =>
             {
                 var nextSceneIndex = isStartMenu ? 1 : 0;
