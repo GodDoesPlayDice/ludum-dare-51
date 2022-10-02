@@ -38,7 +38,6 @@ namespace UI
             for (int i = 0; i < resolutions.Length; i++)
             {
                 options.Add(resolutions[i].width + " x " + resolutions[i].height);
-
                 if (resolutions[i].width == Screen.currentResolution.width && 
                     resolutions[i].height == Screen.currentResolution.height)
                 {
