@@ -139,7 +139,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 40
   m_MinHeight: 40
-  m_PreferredWidth: 1000
+  m_PreferredWidth: 250
   m_PreferredHeight: 100
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -157,9 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textRectTransform: {fileID: 8857311495550649636}
-  duration: 0.5
-  vibrato: 7
-  elasticity: 1.5
+  scaleMultiplier: 1.2
 --- !u!1 &5227116040743624955
 GameObject:
   m_ObjectHideFlags: 0
