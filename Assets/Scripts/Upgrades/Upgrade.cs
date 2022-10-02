@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrade
+[CreateAssetMenu(fileName = "Upgrade", menuName = "Upgrade", order = 1)]
+public class Upgrade : ScriptableObject
 {
-    private string name;
-    private string description;
-    private Action upgradeAction;
+    public Texture2D icon;
+    public string upgradeName;
+    public string description;
+    public int weight;
+    public UpgradeAction[] upgradeAction;
 }
