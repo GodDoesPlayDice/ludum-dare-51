@@ -85,7 +85,7 @@ public class EnemySpawner : MonoBehaviour
         enemiesPool.TryGetValue(data, out var list);
         if (list == null || list.Count == 0)
         {
-            result = Instantiate(data.prefab, new Vector3(0f, -10f, 0f), Quaternion.identity, transform);
+            result = Instantiate(data.prefab, new Vector3(0f, -8f, 0f), Quaternion.identity, transform);
             result.GetComponent<Death>().OnReadyToPool += obj => BackToPool(data, obj);
         } else
         {
