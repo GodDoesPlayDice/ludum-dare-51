@@ -34,5 +34,10 @@ namespace UI
                 healthSlider.value = _character.Health / maxHealth;
             healthText.text = $"{_character.Health}/{maxHealth}";
         }
+
+        public void ShowUpgradePanel()
+        {
+            GameObject.FindGameObjectWithTag("UpgradePanel").GetComponent<UpgradeMenuController>().Show();
+        }
     }
 }

@@ -17,6 +17,9 @@ public class UpgradeManager : MonoBehaviour
     void Start()
     {
         // TODO: LOAD ALL UPGRADES
+        allUpgrades = Resources.LoadAll<Upgrade>("Upgrades");
+
+        Debug.Log(allUpgrades.Length);
 
         FillUpgradeWeights();
     }
