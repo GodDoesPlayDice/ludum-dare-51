@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class UpgradeMenuController : MonoBehaviour
@@ -23,12 +24,21 @@ public class UpgradeMenuController : MonoBehaviour
     public void FillFields(Upgrade[] upgradeList)
     {
         var upgradeItems = gameObject.GetComponentsInChildren<UpgradeItemFiller>();
+        if (upgradeList == null)
+        {
+            upgradeItems.ToList().ForEach(it => it.Clear());
+            return;
+        }
         for (int i = 0; i < upgradeList.Length; i++)
         {
-            upgradeItems[i].SetName(upgradeList[i].upgradeName);
-            upgradeItems[i].SetDescription(upgradeList[i].description);
-            upgradeItems[i].SetIcon(upgradeList[i].icon);
+            upgradeItems[i].SetUpgrade(upgradeList[i]);
         }
+    }
+
+    public void OnUpgradeSelect(Upgrade upgrade)
+    {
+        FillFields(null);
+        upgradeApplier.ApplyUpgrade(upgrade);
     }
     
     public void Show()

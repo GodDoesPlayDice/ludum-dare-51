@@ -64,6 +64,7 @@ namespace UI
 
         public void ShowUpgradePanel()
         {
+            Debug.Log("PRESSED");
             GameObject.FindGameObjectWithTag("UpgradePanel").GetComponent<UpgradeMenuController>().Show();
         }
     }

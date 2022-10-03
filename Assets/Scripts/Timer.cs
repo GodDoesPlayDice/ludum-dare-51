@@ -1,10 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    public float cycleDuration = 10f;
     private int _cycle;
     public float fullTime;
     private float _currentCycleTime;
@@ -33,8 +32,8 @@ public class Timer : MonoBehaviour
     void Update()
     {
         fullTime += Time.deltaTime;
-        _currentCycleTime = fullTime % 10;
+        _currentCycleTime = fullTime % cycleDuration;
         OnCurrentCycleTimeChange?.Invoke(_currentCycleTime);
-        Cycle = (int)fullTime / 10;
+        Cycle = (int)(fullTime / cycleDuration);
     }
 }

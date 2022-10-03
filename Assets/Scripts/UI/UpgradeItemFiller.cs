@@ -9,17 +9,45 @@ public class UpgradeItemFiller : MonoBehaviour
     public TMP_Text upgradeDescription;
     public RawImage upgradeIcon;
 
-    public void SetName(string name)
+    private Upgrade upgrade;
+    private UpgradeMenuController menuController;
+
+    private void Start()
+    {
+        menuController = GetComponentInParent<UpgradeMenuController>();
+    }
+    public void SetUpgrade(Upgrade upgrade)
+    {
+        this.upgrade = upgrade;
+        SetName(upgrade.upgradeName);
+        SetDescription(upgrade.description);
+        SetIcon(upgrade.icon);
+    }
+
+    public void Clear()
+    {
+        this.upgrade = null;
+        SetName("");
+        SetDescription("");
+        SetIcon(null);
+    }
+
+    public void Selected()
+    {
+        menuController.OnUpgradeSelect(upgrade);
+    }
+
+    private void SetName(string name)
     {
         upgradeName.SetText(name);
     }
 
-    public void SetDescription(string description)
+    private void SetDescription(string description)
     {
         upgradeDescription.SetText(description);
     }
 
-    public void SetIcon(Texture icon)
+    private void SetIcon(Texture icon)
     {
         upgradeIcon.texture = icon;
         
