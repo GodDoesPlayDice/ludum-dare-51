@@ -128,12 +128,16 @@ public class Enemy : Character
             {
                 Agent.isStopped = true;
                 Agent.enabled = false;
+                tag = "Untagged";
+                Debug.Log("Dead");
             }
             else if (!IsAlive)
             {
                 // revive
                 Agent.isStopped = false;
                 Agent.enabled = true;
+                tag = "Enemy";
+                Debug.Log("Revive");
             }
         };
     }

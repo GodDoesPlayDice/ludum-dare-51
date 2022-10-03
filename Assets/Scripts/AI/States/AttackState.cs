@@ -4,7 +4,7 @@ namespace AI.States
 {
     public class AttackState : State
     {
-        public AttackType CurrentAttackType => Random.Range(0, 3) == 0 ? AttackType.Light : AttackType.Heavy;
+        public AttackType CurrentAttackType => AttackType.Light; 
 
         public override State RunCurrentState()
         {

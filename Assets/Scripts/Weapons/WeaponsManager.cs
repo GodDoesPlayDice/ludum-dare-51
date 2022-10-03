@@ -18,7 +18,7 @@ public class WeaponsManager : MonoBehaviour
 
     [SerializeField] private float _damageMultiplier = 1f;
     [SerializeField] private float _critChancePercent = 0f;
-    [SerializeField] private float _critMultiplier = 0f;
+    [SerializeField] private float _critMultiplier = 1f;
 
 
     private HashSet<WeaponData> currentWeapons = new HashSet<WeaponData>();
@@ -45,12 +45,14 @@ public class WeaponsManager : MonoBehaviour
 
     public void AddWeapon(WeaponData weapon)
     {
+        /*
         if (!currentWeapons.Add(weapon))
         {
             var weaponControllers = gameObject.GetComponentsInChildren<WeaponController>();
             var weaponObject = weaponControllers.Where(it => it.data == weapon).First().gameObject;
             GameObject.Destroy(weaponObject);
         }
+        */
         var instance = CreateWeaponInstance();
         var wController = instance.GetComponent<WeaponController>();
         wController.SetData(weapon);

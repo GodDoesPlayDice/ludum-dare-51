@@ -54,6 +54,9 @@ MonoBehaviour:
   positionOffset: {x: 0, y: 3, z: 0}
   minMovementTime: 2
   maxMovementTime: 3
+  _damageMultiplier: 1
+  _critChancePercent: 0
+  _critMultiplier: 1
 --- !u!65 &5413783333816237350
 BoxCollider:
   m_ObjectHideFlags: 0

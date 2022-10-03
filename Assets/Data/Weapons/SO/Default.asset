@@ -23,5 +23,5 @@ MonoBehaviour:
   coolDown: 0.5
   distance: 10
   aoeArea: 0
-  orbColor: {r: 0.61698115, g: 0.85636795, b: 1, a: 1}
+  orbColor: {r: 0.37169808, g: 0.76278394, b: 1, a: 1}
   prefab: {fileID: 1168065043843762, guid: 70cd80e6e8517904da249485ffde005f, type: 3}
