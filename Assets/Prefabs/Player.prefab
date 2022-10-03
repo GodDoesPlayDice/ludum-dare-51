@@ -2207,9 +2207,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 2
   directMovementBlend: 1
-  oneSecondSprintStaminaCost: 20
-  jumpStaminaCost: 40
-  staminaRegenPerSecond: 5
+  oneSecondSprintStaminaCost: 25
+  <JumpStaminaCost>k__BackingField: 30
+  staminaRegenPerSecond: 10
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
@@ -2389,7 +2389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d5467910214455ba1b7f19e80a6f847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 100
 --- !u!114 &4416926083347132246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2439,6 +2439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f3d53c29e455993cefc25e070f58a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxStamina: 100
 --- !u!1 &7645267951554668011
 GameObject:
   m_ObjectHideFlags: 0
@@ -2908,7 +2909,12 @@ PrefabInstance:
     - target: {fileID: 1931427173541489594, guid: abd6a7450acbf4fee934ed2f52c166ea,
         type: 3}
       propertyPath: m_fontSize
-      value: 50.65
+      value: 50.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017832362416066283, guid: abd6a7450acbf4fee934ed2f52c166ea,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abd6a7450acbf4fee934ed2f52c166ea, type: 3}
@@ -2963,7 +2969,7 @@ PrefabInstance:
     - target: {fileID: 7422880755903292916, guid: 0e89622d4371d47a68e2ad3932c9339b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -8.0000305
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 7422880756022538181, guid: 0e89622d4371d47a68e2ad3932c9339b,
         type: 3}
@@ -3163,12 +3169,12 @@ PrefabInstance:
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000015299358
+      value: 0.000000015299358
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000007873323
+      value: -0.000000007873323
       objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177912, guid: a1a802ecaf6775746bb2a929fb554ad8,
         type: 3}
@@ -3220,8 +3226,8 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 0.5
-  m_VerticalDamping: 0.5
+  m_HorizontalDamping: 1
+  m_VerticalDamping: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
@@ -3365,7 +3371,7 @@ PrefabInstance:
     - target: {fileID: 5609455400891562066, guid: 9ac93a062a9d548ed818536ddb4ebb48,
         type: 3}
       propertyPath: m_fontSize
-      value: 54.65
+      value: 54.45
       objectReference: {fileID: 0}
     - target: {fileID: 5609455401288374860, guid: 9ac93a062a9d548ed818536ddb4ebb48,
         type: 3}

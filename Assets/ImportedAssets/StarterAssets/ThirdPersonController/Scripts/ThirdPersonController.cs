@@ -21,7 +21,11 @@ namespace StarterAssets
 
         [SerializeField] [Range(0, 1f)] private float directMovementBlend = 0.4f;
         [SerializeField] [Range(0, 30f)] private float oneSecondSprintStaminaCost = 20f;
-        [SerializeField] [Range(0, 50f)] private float jumpStaminaCost = 40f;
+
+        [field: SerializeField]
+        [field: Range(0, 50f)]
+        public float JumpStaminaCost { get; private set; } = 30f;
+        
         [SerializeField] [Range(0, 50f)] private float staminaRegenPerSecond = 5f;
 
         [Tooltip("Sprint speed of the character in m/s")]
@@ -176,7 +180,7 @@ namespace StarterAssets
             GroundedCheck();
             Move();
 
-            if (!_input.sprint && !_input.jump)
+            if (!(_input.sprint && _input.move != Vector2.zero))
                 _stamina.CurrentStamina += staminaRegenPerSecond * Time.deltaTime;
         }
 
@@ -339,7 +343,7 @@ namespace StarterAssets
                 }
 
                 // Jump
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f && _stamina.CurrentStamina >= jumpStaminaCost)
+                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
@@ -348,9 +352,7 @@ namespace StarterAssets
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDJump, true);
-                    }
-
-                    _stamina.CurrentStamina -= jumpStaminaCost;
+                    } 
                 }
 
                 // jump timeout

@@ -47,6 +47,7 @@ namespace UI
         private void UpdateStamina(float stamina)
         {
             if (_stamina.MaxStamina != 0)
+
                 staminaSlider.value = stamina / _stamina.MaxStamina;
         }
 

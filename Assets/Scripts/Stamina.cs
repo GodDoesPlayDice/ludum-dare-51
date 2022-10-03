@@ -9,7 +9,7 @@ public class Stamina : MonoBehaviour
         get => maxStamina;
         set
         {
-            if (Mathf.Approximately(value, maxStamina))
+            if (!Mathf.Approximately(value, maxStamina))
                 OnMaxStaminaChange?.Invoke(value);
             maxStamina = value;
         }
@@ -21,7 +21,7 @@ public class Stamina : MonoBehaviour
         set
         {
             var clamped = Mathf.Clamp(value, 0f, maxStamina);
-            if (Mathf.Approximately(clamped, _currentStamina))
+            if (!Mathf.Approximately(clamped, _currentStamina))
                 OnCurrentStaminaChange?.Invoke(clamped);
             _currentStamina = clamped;
         }
