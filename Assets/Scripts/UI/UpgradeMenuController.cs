@@ -13,18 +13,6 @@ public class UpgradeMenuController : MonoBehaviour
             InitUpgradeFields();
         }
     }
-
-    /*
-    private void OnEnable()
-    {
-        if (upgradeManager == null)
-        {
-            InitUpgradeFields();
-        }
-        FillFields(upgradeManager.GetCurrentAvailableUpgrades());
-    }
-    */
-
     private void InitUpgradeFields()
     {
         var upgradeObj = GameObject.FindGameObjectWithTag("Upgrade");
@@ -34,9 +22,7 @@ public class UpgradeMenuController : MonoBehaviour
 
     public void FillFields(Upgrade[] upgradeList)
     {
-        Debug.Log(upgradeList.Length);
         var upgradeItems = gameObject.GetComponentsInChildren<UpgradeItemFiller>();
-        Debug.Log(upgradeItems.Length);
         for (int i = 0; i < upgradeList.Length; i++)
         {
             upgradeItems[i].SetName(upgradeList[i].upgradeName);
@@ -47,12 +33,12 @@ public class UpgradeMenuController : MonoBehaviour
     
     public void Show()
     {
+        if (upgradeManager.LevelsAvailable <= 0)
+        {
+            return;
+        }
         panelObject.SetActive(true);
 
-        //if (upgradeManager == null)
-        //{
-        //    InitUpgradeFields();
-        //}
         FillFields(upgradeManager.GetCurrentAvailableUpgrades());
     }
 

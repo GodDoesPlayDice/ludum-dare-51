@@ -1,18 +1,32 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class UpgradeManager : MonoBehaviour
 {
     public int upgradesPerLvl = 3;
 
-    public int levelsAvailable;
+    public int LevelsAvailable
+    {
+        get => _levelsAvailable;
+        set
+        {
+            if (value != _levelsAvailable)
+                OnAvailableLvlChange?.Invoke(value);
+            _levelsAvailable = value;
+        }
+    }
 
     private Upgrade[] allUpgrades;
     private int[] upgradeWeights;
 
+    private int _levelsAvailable;
+
     private Upgrade[] currentLvlUpgrades;
+
+    public event Action<int> OnAvailableLvlChange;
 
     void Start()
     {
@@ -20,8 +34,6 @@ public class UpgradeManager : MonoBehaviour
         {
             LoadAllUpgrades();
         }
-
-        //Debug.Log(allUpgrades.Length);
 
         if (upgradeWeights == null)
         {
