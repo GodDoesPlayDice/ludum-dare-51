@@ -10,14 +10,22 @@ namespace UI
         [SerializeField] private Slider staminaSlider;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TextMeshProUGUI healthText;
+        [SerializeField] private Button showUpgradesButton;
+        [SerializeField] private Slider timeSlider;
 
         private Character _character;
         private Stamina _stamina;
+
+        private UpgradeManager _upgradeManager;
+        private Timer _timer;
 
         private void Awake()
         {
             _character = GetComponentInParent<Character>();
             _stamina = _character.GetComponent<Stamina>();
+
+            _upgradeManager = GameObject.FindGameObjectWithTag("Upgrade").GetComponent<UpgradeManager>();
+            _timer = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
 
             UpdateHealth(_character.Health);
             UpdateMaxHealth(_character.MaxHealth);
@@ -28,6 +36,14 @@ namespace UI
             _character.OnMaxHealthChange += UpdateMaxHealth;
             _stamina.OnCurrentStaminaChange += UpdateStamina;
             _stamina.OnMaxStaminaChange += UpdateMaxStamina;
+
+            _upgradeManager.OnAvailableLvlChange += UpdateUpgradeButtonLevel;
+            _timer.OnCurrentCycleTimeChange += UpdateTimer;
+        }
+
+        public void ShowUpgradePanel()
+        {
+            GameObject.FindGameObjectWithTag("UpgradePanel").GetComponent<UpgradeMenuController>().Show();
         }
 
         private void UpdateHealth(float health)
@@ -55,6 +71,20 @@ namespace UI
         {
             if (maxStamina != 0)
                 staminaSlider.value = _stamina.CurrentStamina / maxStamina;
+        }
+
+        private void UpdateUpgradeButtonLevel(int lvlAvailable)
+        {
+            showUpgradesButton.GetComponentInChildren<TMP_Text>().text = lvlAvailable.ToString();
+            var available = lvlAvailable > 0;
+            showUpgradesButton.interactable = available;
+            //var colors = showUpgradesButton.colors;
+            //colors.normalColor = available ? new Color(144, 183, 125) : Color.gray;
+        }
+
+        private void UpdateTimer(float time)
+        {
+            timeSlider.value = time;
         }
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5413783333816237350}
   m_Layer: 0
   m_Name: WeaponsManager
-  m_TagString: Untagged
+  m_TagString: Weapons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +51,6 @@ MonoBehaviour:
   defaultWeapon: {fileID: 11400000, guid: bd99f1f28e973c1498aea9db04053ff1, type: 2}
   weaponPrefab: {fileID: 8504533883644135084, guid: 0ed682cbfbc68c049b8a7abfe3236502,
     type: 3}
-  targetToFollow: {fileID: 0}
   positionOffset: {x: 0, y: 3, z: 0}
   minMovementTime: 2
   maxMovementTime: 3
