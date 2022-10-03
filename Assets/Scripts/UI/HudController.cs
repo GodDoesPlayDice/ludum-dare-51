@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,8 @@ namespace UI
         private UpgradeManager _upgradeManager;
         private UpgradeMenuController _upgradePanel;
         private Timer _timer;
+
+        private Tweener _tweener;
 
         private void Awake()
         {
@@ -83,10 +86,12 @@ namespace UI
             var available = lvlAvailable > 0;
             showUpgradesButton.interactable = available;
             upgradeAvailableText.gameObject.SetActive(available);
-            if (available)
-                upgradeAvailableText.transform.DOPunchRotation(new Vector3(0f, 0f, 10f), .5f).SetLoops(10000);
-            //var colors = showUpgradesButton.colors;
-            //colors.normalColor = available ? new Color(144, 183, 125) : Color.gray;
+            if (available && _tweener is not {active: true})
+            {
+                upgradeAvailableText.transform.rotation = Quaternion.identity;
+                _tweener = upgradeAvailableText.transform.DOPunchRotation(new Vector3(0f, 0f, 10f), .5f)
+                    .SetLoops(10000);
+            }
         }
 
         private void UpdateTimer(float time)
