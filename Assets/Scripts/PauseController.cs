@@ -9,7 +9,7 @@ public class PauseController : MonoBehaviour
     private PauseScreen _pauseScreen;
     private UpgradeMenuController _upgradeMenuController;
 
-    private bool _isPaused;
+    public bool IsPaused { get; private set; }
 
     private void Awake()
     {
@@ -21,18 +21,18 @@ public class PauseController : MonoBehaviour
     private void Update()
     {
         if (_inputs.esc && !_upgradeMenuController.panelObject.activeSelf)
-            TogglePause(!_isPaused, true);
+            TogglePause(!IsPaused, true);
     }
 
     public void TogglePause(bool isPause, bool showPauseScreen = false)
     {
         if (isPause && _upgradeMenuController.panelObject.activeSelf)
             return;
-        _isPaused = isPause;
+        IsPaused = isPause;
         _inputs.esc = false;
 
         if (showPauseScreen)
             _pauseScreen.ToggleFullScreen(isPause);
-        Time.timeScale = _isPaused ? 0f : 1f;
+        Time.timeScale = IsPaused ? 0f : 1f;
     }
 }
