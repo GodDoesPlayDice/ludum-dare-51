@@ -70,7 +70,7 @@ public class UpgradeMenuController : MonoBehaviour
 
     public bool Show()
     {
-        if (upgradeManager.LevelsAvailable <= 0 && _pauseController.IsPaused)
+        if (upgradeManager.LevelsAvailable <= 0 || _pauseController.IsPaused)
         {
             return false;
         }
