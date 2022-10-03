@@ -1,5 +1,6 @@
 using System.Collections;
 using DG.Tweening;
+using UI.Screens;
 using UnityEngine;
 
 public class Death : MonoBehaviour
@@ -28,7 +29,8 @@ public class Death : MonoBehaviour
             transform.DOMoveY(transform.position.y - 3, 30f).OnComplete(() => Destroy(gameObject));
         else
         {
-            
+            var deathScreen = _character.GetComponentInChildren<DeathScreen>();
+            deathScreen.ToggleFullScreen(true);
         }
             
     }

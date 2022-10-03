@@ -1,5 +1,6 @@
 using StarterAssets;
 using UI;
+using UI.Screens;
 using UnityEngine;
 
 public class PauseController : MonoBehaviour
