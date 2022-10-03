@@ -10,8 +10,7 @@ public class UpgradeMenuController : MonoBehaviour
     private UpgradeManager upgradeManager;
     private UpgradeApplier upgradeApplier;
 
-    private StarterAssetsInputs _inputs;
-
+    private StarterAssetsInputs _inputs; 
     private void Awake()
     {
         _inputs = GetComponentInParent<StarterAssetsInputs>();
