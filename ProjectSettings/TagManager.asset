@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Upgrade
   - UpgradePanel
+  - Timer
   layers:
   - Default
   - TransparentFX
