@@ -3,11 +3,17 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    #region Inspector
+    public float MaxHealth
+    {
+        get => _maxHealth;
+        set
+        {
+            if (!Mathf.Approximately(value, _maxHealth))
+                OnMaxHealthChange?.Invoke(value);
+            _maxHealth = value;
+        }
+    }
 
-    public float maxHealth = 100f;
-
-    #endregion
 
     #region State
 
@@ -16,7 +22,8 @@ public class Character : MonoBehaviour
         get => _isAlive;
         private set
         {
-            OnIsAliveChange?.Invoke(value);
+            if (value != _isAlive)
+                OnIsAliveChange?.Invoke(value);
             _isAlive = value;
         }
     }
@@ -26,7 +33,8 @@ public class Character : MonoBehaviour
         get => _health;
         private set
         {
-            OnHealthChange?.Invoke(value);
+            if (!Mathf.Approximately(value, _health))
+                OnHealthChange?.Invoke(value);
             _health = value;
         }
     }
@@ -53,6 +61,7 @@ public class Character : MonoBehaviour
 
     // private backing fields
     private bool _isAlive = true;
+    private float _maxHealth;
     private float _health;
     private Vector3 _velocity;
     private Vector3 _targetPosition;
@@ -64,25 +73,27 @@ public class Character : MonoBehaviour
     public event Action<Vector3> OnVelocityChange;
     public event Action<Vector3> OnCurrentTargetChange;
     public event Action<float> OnHealthChange;
+    public event Action<float> OnMaxHealthChange;
     public event Action<bool> OnIsAliveChange;
 
     #endregion
 
-    protected  virtual void Awake()
+    protected virtual void Awake()
     {
-        Health = maxHealth;
+        MaxHealth = 100f;
+        Health = MaxHealth;
     }
 
     public void Damage(float amount)
     {
-        Health = Mathf.Clamp(Health - Mathf.Abs(amount), 0f, maxHealth);
+        Health = Mathf.Clamp(Health - Mathf.Abs(amount), 0f, MaxHealth);
         if (Health <= 0)
             IsAlive = false;
     }
 
     public void Heal(float amount)
     {
-        Health = Mathf.Clamp(Health + Mathf.Abs(amount), 0f, maxHealth);
+        Health = Mathf.Clamp(Health + Mathf.Abs(amount), 0f, MaxHealth);
         if (Health > 0)
             IsAlive = true;
     }

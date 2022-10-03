@@ -1,10 +1,10 @@
 using System;
+using System.Collections;
 using DG.Tweening;
+using Sound;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -28,6 +28,9 @@ namespace UI
         [SerializeField] private TMP_Dropdown soundSettingDropDown;
 
         private CanvasGroup _currentGroup;
+        private Character _character;
+        private PauseController _pauseController;
+        private bool isStartMenu => (_character ??= GetComponentInParent<Character>()) == null;
 
 
         public void ToggleWholeScreen(bool isEnable)
@@ -55,16 +58,34 @@ namespace UI
             if (backButton != null)
                 backButton.onClick.AddListener(OnBackPressed);
 
-            if (qualitySettingDropDown)
+            UpdateGroups(mainGroup);
+
+            if (!isStartMenu)
+                _pauseController = _character.GetComponent<PauseController>();
+
+            LoadingScreenController.Instance.OnShowEnded += () =>
             {
-                
+                var nextSceneIndex = isStartMenu ? 1 : 0;
+                SceneManager.LoadScene(nextSceneIndex);
+            };
+        }
+
+        private IEnumerator Start()
+        {
+            if (qualitySettingDropDown != null)
+            {
                 qualitySettingDropDown.onValueChanged.AddListener(SetQuality);
                 qualitySettingDropDown.value = QualitySettings.GetQualityLevel();
             }
-            if (soundSettingDropDown)
-                qualitySettingDropDown.onValueChanged.AddListener(SetSoundSettings);
 
-            UpdateGroups(mainGroup);
+            if (soundSettingDropDown != null)
+            {
+                soundSettingDropDown.onValueChanged.AddListener(SetSoundSettings);
+                soundSettingDropDown.value = (int) SoundManager.Instance.CurrentSoundMode;
+            }
+
+            yield return new WaitForEndOfFrame();
+            LoadingScreenController.Instance.ToggleScreen(false);
         }
 
         private void UpdateGroups(CanvasGroup enabledGroup)
@@ -101,12 +122,12 @@ namespace UI
 
         private void OnPlayClicked()
         {
-            // if this menu is child of the player then esc pause
-            var character = GetComponentInParent<Character>();
-            if (character != null)
+            if (!isStartMenu)
+                _pauseController.TogglePause(false);
+            else
             {
-                var pauseController = character.GetComponent<PauseController>();
-                pauseController.TogglePause(false);
+                SoundManager.Instance.SwapMusicTrack(SoundManager.Instance.gameplayMusic);
+                LoadingScreenController.Instance.ToggleScreen(true);
             }
         }
 
@@ -122,6 +143,18 @@ namespace UI
 
         private void OnExitClicked()
         {
+            if (isStartMenu)
+            {
+#if !UNITY_EDITOR
+                Application.Quit();
+#endif
+            }
+            else
+            {
+                _pauseController.TogglePause(false);
+                SoundManager.Instance.SwapMusicTrack(SoundManager.Instance.menuMusic);
+                LoadingScreenController.Instance.ToggleScreen(true);
+            }
         }
 
         public void SetQuality(int qualityIndex)
@@ -131,6 +164,7 @@ namespace UI
 
         public void SetSoundSettings(int soundMode)
         {
+            SoundManager.Instance.SetSoundMode(soundMode);
         }
     }
 }

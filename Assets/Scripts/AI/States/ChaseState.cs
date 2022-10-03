@@ -21,7 +21,7 @@ namespace AI.States
 
             Agent.SetDestination(_targetPos);
             // rotation towards player 
-            if (Controller.DistToTarget < Controller.AttackDistance)
+            if (Controller.DistToTarget < Controller.AttackDistance && Controller.IsAlive)
             {
                 _targetRotation =
                     Quaternion.LookRotation((Controller.TargetPosition - Agent.transform.position).normalized);

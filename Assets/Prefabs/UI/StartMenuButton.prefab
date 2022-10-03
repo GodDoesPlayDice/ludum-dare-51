@@ -139,7 +139,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 40
   m_MinHeight: 40
-  m_PreferredWidth: 1000
+  m_PreferredWidth: 250
   m_PreferredHeight: 100
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -156,10 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4858bd53ae94d149bc68fc806a89cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onClickSound: {fileID: 8300000, guid: 2b7124183be604f0b968dbdae1357923, type: 3}
+  onPointerEnterSound: {fileID: 8300000, guid: e98be0937f8324c81ba2ff741b297b7a, type: 3}
   textRectTransform: {fileID: 8857311495550649636}
-  duration: 0.5
-  vibrato: 7
-  elasticity: 1.5
+  scaleMultiplier: 1.2
 --- !u!1 &5227116040743624955
 GameObject:
   m_ObjectHideFlags: 0
