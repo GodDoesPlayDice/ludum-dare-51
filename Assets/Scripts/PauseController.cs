@@ -7,6 +7,7 @@ public class PauseController : MonoBehaviour
 {
     private StarterAssetsInputs _inputs;
     private PauseScreen _pauseScreen;
+    private UpgradeMenuController _upgradeMenuController;
 
     private bool _isPaused;
 
@@ -14,19 +15,24 @@ public class PauseController : MonoBehaviour
     {
         _inputs = GetComponent<StarterAssetsInputs>();
         _pauseScreen = GetComponentInChildren<PauseScreen>();
+        _upgradeMenuController = GetComponentInChildren<UpgradeMenuController>();
     }
 
     private void Update()
     {
-        if (_inputs.esc)
-            TogglePause(!_isPaused);
+        if (_inputs.esc && !_upgradeMenuController.panelObject.activeSelf)
+            TogglePause(!_isPaused, true);
     }
 
-    public void TogglePause(bool isPause)
+    public void TogglePause(bool isPause, bool showPauseScreen = false)
     {
+        if (isPause && _upgradeMenuController.panelObject.activeSelf)
+            return;
         _isPaused = isPause;
         _inputs.esc = false;
-        _pauseScreen.ToggleFullScreen(isPause);
+
+        if (showPauseScreen)
+            _pauseScreen.ToggleFullScreen(isPause);
         Time.timeScale = _isPaused ? 0f : 1f;
     }
 }

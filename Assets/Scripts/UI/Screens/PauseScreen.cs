@@ -49,14 +49,14 @@ namespace UI.Screens
 
         protected override void OnExitClicked()
         {
-            _pauseController.TogglePause(false);
+            _pauseController.TogglePause(false, true);
             SoundManager.Instance.SwapMusicTrack(SoundManager.Instance.menuMusic);
             LoadingScreenController.Instance.ToggleScreen(true);
         }
 
         protected override void OnPlayClicked()
         {
-            _pauseController.TogglePause(false);
+            _pauseController.TogglePause(false, true);
         }
     }
 }

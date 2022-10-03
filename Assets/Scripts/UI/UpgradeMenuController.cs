@@ -10,10 +10,13 @@ public class UpgradeMenuController : MonoBehaviour
     private UpgradeManager upgradeManager;
     private UpgradeApplier upgradeApplier;
 
-    private StarterAssetsInputs _inputs; 
+    private StarterAssetsInputs _inputs;
+    private PauseController _pauseController;
+
     private void Awake()
     {
         _inputs = GetComponentInParent<StarterAssetsInputs>();
+        _pauseController = GetComponentInParent<PauseController>();
     }
 
     private void Start()
@@ -72,6 +75,7 @@ public class UpgradeMenuController : MonoBehaviour
             return false;
         }
 
+        _pauseController.TogglePause(true);
         panelObject.SetActive(true);
 
         FillFields(upgradeManager.GetCurrentAvailableUpgrades());
@@ -81,5 +85,6 @@ public class UpgradeMenuController : MonoBehaviour
     public void Hide()
     {
         panelObject.SetActive(false);
+        _pauseController.TogglePause(false);
     }
 }
