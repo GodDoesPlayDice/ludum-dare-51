@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UpgradeApplier : MonoBehaviour
@@ -32,8 +33,7 @@ public class UpgradeApplier : MonoBehaviour
                 player.Heal(player.MaxHealth / 100f * action.value);
                 break;
             case UpgradeType.INC_DAMAGE_PERCENT:
-                GameObject.FindGameObjectWithTag("Weapons").GetComponent<WeaponsManager>().
-                    IncreaseDamagePercent(action.value);
+                GetWeaponsManager().IncreaseDamagePercent(action.value);
                 break;
             case UpgradeType.INC_ATTACK_RATE:
 
@@ -43,10 +43,12 @@ public class UpgradeApplier : MonoBehaviour
                 
                 break;
             case UpgradeType.MAGIC_MISSILE:
-
+                var weaponManager = GetWeaponsManager();
+                weaponManager.AddWeapon(weaponManager.allWeapons.Where(it => it.weaponName == "Default").First());
                 break;
             case UpgradeType.FIREBALL:
-
+                //var weaponManager = GetWeaponsManager();
+                //weaponManager.AddWeapon(weaponManager.allWeapons.Where(it => it.weaponName == "Fireball").First());
                 break;
             case UpgradeType.INC_CRIT_CHANCE:
                 
@@ -63,5 +65,10 @@ public class UpgradeApplier : MonoBehaviour
     private Character GetCharacter()
     {
         return GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
+    }
+
+    private WeaponsManager GetWeaponsManager()
+    {
+        return GameObject.FindGameObjectWithTag("Weapons").GetComponent<WeaponsManager>();
     }
 }
