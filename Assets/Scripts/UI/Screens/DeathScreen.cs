@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Mono.Cecil;
 using Sound;
 using TMPro;
 using UnityEngine;
@@ -17,20 +18,24 @@ namespace UI.Screens
         [SerializeField] private Timer timer;
 
         private int _nextSceneIndex;
+        private Character _character;
 
         protected override void Awake()
         {
             base.Awake();
             playButton.onClick.AddListener(OnPlayClicked);
             exitButton.onClick.AddListener(OnExitClicked);
+            _character = GetComponentInParent<Character>();
 
             LoadingScreenController.Instance.OnShowEnded += () => { SceneManager.LoadScene(_nextSceneIndex); };
             ToggleFullScreen(false);
         }
 
-        private void OnEnable()
+
+        private void Update()
         {
-            playTime.text = $"Survived for: {Math.Round(timer.fullTime)} seconds";
+            if (_character.IsAlive)
+                playTime.text = $"Survived for: {Math.Round(timer.fullTime)} seconds";
         }
 
         protected override void OnExitClicked()
