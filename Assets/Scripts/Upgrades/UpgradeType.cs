@@ -13,6 +13,7 @@ public enum UpgradeType
     INC_CRIT_MULTIPLIYER,
     INC_STAMINA,
     MAGIC_MISSILE,
-    FIREBALL
+    FIREBALL,
+    INC_STAMINA_RECOVERY
 
 }
