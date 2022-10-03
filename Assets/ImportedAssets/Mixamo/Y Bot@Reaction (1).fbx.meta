@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: c3ce306f4a1504c02bd8575d9fe8c481
+guid: 86ef38ffacee742999328a20544334d4
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
+    second: Reaction (1)
+  - first:
+      74: 7499963176143599311
     second: Reaction
   externalObjects: {}
   materials:
@@ -529,13 +532,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Y Bot@Reaction(Clone)
+    - name: Y Bot@Reaction (1)(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: mixamorig:Hips
-      parentName: Y Bot@Reaction(Clone)
+      parentName: Y Bot@Reaction (1)(Clone)
       position: {x: 0.0013775826, y: 0.91525954, z: 0.039060146}
       rotation: {x: 0.0048577148, y: 0.0042790705, z: -0.010333877, w: 0.9999257}
       scale: {x: 1, y: 1, z: 1}
