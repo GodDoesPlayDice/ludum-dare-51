@@ -39,17 +39,22 @@ public class UpgradeMenuController : MonoBehaviour
     {
         FillFields(null);
         upgradeApplier.ApplyUpgrade(upgrade);
+        if (!Show())
+        {
+            Hide();
+        }
     }
     
-    public void Show()
+    public bool Show()
     {
         if (upgradeManager.LevelsAvailable <= 0)
         {
-            return;
+            return false;
         }
         panelObject.SetActive(true);
 
         FillFields(upgradeManager.GetCurrentAvailableUpgrades());
+        return true;
     }
 
     public void Hide()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ public class WeaponController : MonoBehaviour
 
 
     private float prevShootTime = 0f;
+    private Func<float, float> damageModifierFunction;
+
     //private Vector3 currentTarget; // PRIVATE
     //public Transform targetTMP;
     
@@ -25,6 +28,11 @@ public class WeaponController : MonoBehaviour
         this.data = data;
         var main = GetComponent<ParticleSystem>().main;
         main.startColor = data.orbColor;
+    }
+
+    public void SetDamageModifierFunction(Func<float, float> function)
+    {
+        this.damageModifierFunction = function;
     }
 
     void Start()
@@ -101,8 +109,7 @@ public class WeaponController : MonoBehaviour
         }
         foreach (var enemy in enemies)
         {
-            enemy.Damage(data.damage);
+            enemy.Damage(damageModifierFunction(data.damage));
         }
-        
     }
 }

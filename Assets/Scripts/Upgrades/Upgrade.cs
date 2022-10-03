@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Upgrade", menuName = "Upgrade", order = 1)]
 public class Upgrade : ScriptableObject
 {
+    public bool active = true;
     public Texture2D icon;
     public string upgradeName;
     public string description;

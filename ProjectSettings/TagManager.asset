@@ -10,6 +10,7 @@ TagManager:
   - Upgrade
   - UpgradePanel
   - Timer
+  - Weapons
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,11 @@ public class WeaponsManager : MonoBehaviour
     public float minMovementTime = 1f;
     public float maxMovementTime = 3f;
 
+    [SerializeField] private float _damageMultiplier = 1f;
+    [SerializeField] private float _critChancePercent = 0f;
+    [SerializeField] private float _critMultiplier = 0f;
+
+
     private HashSet<WeaponData> currentWeapons = new HashSet<WeaponData>();
 
     private BoxCollider boxCollider;
@@ -49,7 +54,23 @@ public class WeaponsManager : MonoBehaviour
         var instance = CreateWeaponInstance();
         var wController = instance.GetComponent<WeaponController>();
         wController.SetData(weapon);
+        wController.SetDamageModifierFunction(CalcDamage);
         StartOrbMovement(wController);
+    }
+
+    public void IncreaseDamagePercent(float addDamagePercent)
+    {
+        _damageMultiplier += addDamagePercent / 100f;
+    }
+
+    public void IncreaseCritChance(float addCrit)
+    {
+        _critChancePercent += addCrit;
+    }
+
+    public void IncreaseCritMultiplierPercent(float addCritMultiPercent)
+    {
+        _critMultiplier += addCritMultiPercent / 100f;
     }
 
     private GameObject CreateWeaponInstance()
@@ -67,5 +88,12 @@ public class WeaponsManager : MonoBehaviour
         orb.gameObject.transform.DOLocalMove(dest, Random.Range(minMovementTime, maxMovementTime))
             .SetEase(Ease.InOutSine)
             .OnComplete(() => StartOrbMovement(orb));
+    }
+
+    private float CalcDamage(float weaponDamage)
+    {
+        var crit = Random.Range(0, 100) <= _critChancePercent;
+        var nonCrit = weaponDamage * _damageMultiplier;
+        return crit ? nonCrit * _critMultiplier : nonCrit;
     }
 }

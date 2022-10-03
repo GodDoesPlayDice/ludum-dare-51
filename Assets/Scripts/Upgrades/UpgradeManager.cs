@@ -85,7 +85,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void LoadAllUpgrades()
     {
-        allUpgrades = Resources.LoadAll<Upgrade>("Upgrades");
+        allUpgrades = Resources.LoadAll<Upgrade>("Upgrades").Where(it  => it.active).ToArray();
     }
 
     private void FillUpgradeWeights()
