@@ -17,7 +17,7 @@ public class UpgradeApplier : MonoBehaviour
         switch (action.type)
         {
             case UpgradeType.MAX_LIFE:
-                GameObject.FindGameObjectWithTag("Player").GetComponent<Character>().maxHealth += action.value;
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Character>().MaxHealth += action.value;
                 break;
             case UpgradeType.HEAL:
 
