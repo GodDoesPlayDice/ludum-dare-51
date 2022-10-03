@@ -50,7 +50,7 @@ public class UpgradeManager : MonoBehaviour
 
     public Upgrade[] GetCurrentAvailableUpgrades()
     {
-        if (currentLvlUpgrades == null || currentLvlUpgrades.Length > 0)
+        if (currentLvlUpgrades == null || currentLvlUpgrades.Length == 0)
         {
             var uniqueUpgrades = new HashSet<Upgrade>();
             while (uniqueUpgrades.Count < upgradesPerLvl)
