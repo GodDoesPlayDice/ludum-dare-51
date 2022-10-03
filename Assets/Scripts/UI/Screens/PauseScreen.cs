@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Sound;
 using TMPro;
@@ -6,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Screens
 {
     public class PauseScreen : ScreenBase
     {
@@ -33,6 +32,7 @@ namespace UI
             _pauseController = _character.GetComponent<PauseController>();
 
             LoadingScreenController.Instance.OnShowEnded += () => { SceneManager.LoadScene(0); };
+            ToggleFullScreen(false);
         }
 
         private IEnumerator Start()
