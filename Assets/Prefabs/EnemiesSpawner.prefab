@@ -47,9 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initCost: 2
   costPerSecond: 0.1
-  costChangeSpeed: 0.05
+  costChangeSpeed: 0.04
   initThreshold: 2
-  thresholdPerSecond: 0.1
+  thresholdPerSecond: 0.08
   maxTries: 5
   enemies:
   - prefab: {fileID: 1906799351779856383, guid: f1d45213043484a95ba11e928ed19b18,

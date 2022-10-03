@@ -11,6 +11,7 @@ public class UpgradeApplier : MonoBehaviour
     // Workaround to not change ThirdPersonController code
     private float defaultMoveSpeed = 0;
     private float defaultRunSpeed = 0;
+    private float defaultStaminaPerSecond = 0;
 
     private void Awake()
     {
@@ -76,6 +77,14 @@ public class UpgradeApplier : MonoBehaviour
         else if (action.type == UpgradeType.INC_STAMINA)
         {
             GetStamina().MaxStamina += action.value;
+        } else if (action.type == UpgradeType.INC_STAMINA_RECOVERY)
+        {
+            var tpController = GetTPController();
+            if (defaultStaminaPerSecond == 0)
+            {
+                defaultStaminaPerSecond = tpController.staminaRegenPerSecond;
+            }
+            tpController.staminaRegenPerSecond += defaultStaminaPerSecond / 100f * action.value;
         }
     }
 

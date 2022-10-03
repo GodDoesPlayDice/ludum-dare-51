@@ -10,12 +10,22 @@ PrefabInstance:
     - target: {fileID: 51658677424399876, guid: bcfa79c3309d44c5d9db0119913db7bd,
         type: 3}
       propertyPath: maxHealth
-      value: 200
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 51658677424399876, guid: bcfa79c3309d44c5d9db0119913db7bd,
+        type: 3}
+      propertyPath: <ChaseSpeed>k__BackingField
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 51658677424399876, guid: bcfa79c3309d44c5d9db0119913db7bd,
         type: 3}
       propertyPath: <AttackDistance>k__BackingField
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 51658677424399876, guid: bcfa79c3309d44c5d9db0119913db7bd,
+        type: 3}
+      propertyPath: <LightAttackDamage>k__BackingField
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 51658677424399878, guid: bcfa79c3309d44c5d9db0119913db7bd,
         type: 3}

@@ -26,7 +26,7 @@ namespace StarterAssets
         [field: Range(0, 50f)]
         public float JumpStaminaCost { get; private set; } = 30f;
         
-        [SerializeField] [Range(0, 50f)] private float staminaRegenPerSecond = 5f;
+        [SerializeField] [Range(0, 50f)] public float staminaRegenPerSecond = 5f;
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
