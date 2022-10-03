@@ -1,9 +1,8 @@
 using AI;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
-public class EnemyController : Character
+public class Enemy : Character
 {
     #region Inspector
 

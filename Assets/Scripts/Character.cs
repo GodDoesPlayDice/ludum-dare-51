@@ -61,7 +61,7 @@ public class Character : MonoBehaviour
 
     // private backing fields
     private bool _isAlive = true;
-    private float _maxHealth;
+    [SerializeField] private float _maxHealth;
     private float _health;
     private Vector3 _velocity;
     private Vector3 _targetPosition;
@@ -80,7 +80,7 @@ public class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
-        MaxHealth = 100f;
+        // MaxHealth = 100f;
         Health = MaxHealth;
     }
 
