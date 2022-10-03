@@ -125,7 +125,16 @@ public class Enemy : Character
         OnIsAliveChange += isAlive =>
         {
             if (!isAlive)
+            {
                 Agent.isStopped = true;
+                Agent.enabled = false;
+            }
+            else if (!IsAlive)
+            {
+                // revive
+                Agent.isStopped = false;
+                Agent.enabled = true;
+            }
         };
     }
 }
