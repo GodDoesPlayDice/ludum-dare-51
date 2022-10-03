@@ -17,6 +17,7 @@ namespace UI
         private Stamina _stamina;
 
         private UpgradeManager _upgradeManager;
+        private UpgradeMenuController _upgradePanel;
         private Timer _timer;
 
         private void Awake()
@@ -24,8 +25,9 @@ namespace UI
             _character = GetComponentInParent<Character>();
             _stamina = _character.GetComponent<Stamina>();
 
-            _upgradeManager = GameObject.FindGameObjectWithTag("Upgrade").GetComponent<UpgradeManager>();
-            _timer = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+            _upgradeManager = _character.GetComponentInChildren<UpgradeManager>();
+            _upgradePanel = _character.GetComponentInChildren<UpgradeMenuController>();
+            _timer = _character.GetComponentInChildren<Timer>();
 
             UpdateHealth(_character.Health);
             UpdateMaxHealth(_character.MaxHealth);
@@ -43,7 +45,7 @@ namespace UI
 
         public void ShowUpgradePanel()
         {
-            GameObject.FindGameObjectWithTag("UpgradePanel").GetComponent<UpgradeMenuController>().Show();
+            _upgradePanel.Show();
         }
 
         private void UpdateHealth(float health)
