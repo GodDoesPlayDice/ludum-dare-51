@@ -6,7 +6,7 @@ namespace AI
     public class State : MonoBehaviour
     {
         protected NavMeshAgent Agent;
-        protected EnemyController Controller;
+        protected Enemy Controller;
         protected StateManager StateManager;
         
         public virtual State RunCurrentState()
@@ -17,7 +17,7 @@ namespace AI
         protected void Awake()
         {
             Agent = GetComponentInParent<NavMeshAgent>();
-            Controller = GetComponentInParent<EnemyController>();
+            Controller = GetComponentInParent<Enemy>();
             StateManager = GetComponentInParent<StateManager>();
         }
     }

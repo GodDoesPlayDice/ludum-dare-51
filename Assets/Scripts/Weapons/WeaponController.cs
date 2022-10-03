@@ -81,8 +81,8 @@ public class WeaponController : MonoBehaviour
 
     public void OnProjectileCollide(GameObject projectile, GameObject target)
     {
-        var enemies = new HashSet<EnemyController>();
-        if (target.TryGetComponent<EnemyController>(out var enemyCollided))
+        var enemies = new HashSet<Enemy>();
+        if (target.TryGetComponent<Enemy>(out var enemyCollided))
         {
             enemies.Add(enemyCollided);
         }
@@ -92,8 +92,8 @@ public class WeaponController : MonoBehaviour
             var colliders = Physics.OverlapSphere(projectile.transform.position, data.aoeArea);
             foreach (var coll in colliders)
             {
-                EnemyController enemyInRadius = null;
-                if (coll.gameObject.TryGetComponent<EnemyController>(out enemyInRadius))
+                Enemy enemyInRadius = null;
+                if (coll.gameObject.TryGetComponent<Enemy>(out enemyInRadius))
                 {
                     enemies.Add(enemyInRadius);
                 }
