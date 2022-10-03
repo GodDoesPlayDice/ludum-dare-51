@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NagaAnimationController
+  m_Name: Snake_2lvl
   m_Controller: {fileID: 9100000, guid: 33c137c073559444d8f352927c7847c0, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: -203655887218126122, guid: d1ab356adcacd493b8f27f06670a0890,
@@ -21,7 +21,7 @@ AnimatorOverrideController:
   - m_OriginalClip: {fileID: 7400000, guid: 4fc504f5e054158458cdd2c02798cff3, type: 3}
     m_OverrideClip: {fileID: 7400000, guid: 583be27c36686204b8d2504c0bad3009, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: b3103c5754eff434bb3547c98b90a440, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: b19ad114912e44a60a7a84acadad69ce, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6914c74b218b2044ea2c463ae289d898, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: f18e0dde1245a5b49adf99b4b1a94502, type: 3}
     m_OverrideClip: {fileID: 7400000, guid: 02cfa42aa36ba4c438e9245a2616c168, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 5391e8a024789434dac069bcfdbb9ff9, type: 3}
