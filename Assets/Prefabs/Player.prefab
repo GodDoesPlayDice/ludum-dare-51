@@ -2209,7 +2209,7 @@ MonoBehaviour:
   directMovementBlend: 1
   oneSecondSprintStaminaCost: 25
   <JumpStaminaCost>k__BackingField: 30
-  staminaRegenPerSecond: 10
+  staminaRegenPerSecond: 15
   SprintSpeed: 5.335
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
