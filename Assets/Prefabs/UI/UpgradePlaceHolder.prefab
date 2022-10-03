@@ -569,6 +569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9c4613bd7c2fc40911fc73cd934d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeName: {fileID: 0}
-  upgradeDescription: {fileID: 0}
-  upgradeIcon: {fileID: 0}
+  upgradeName: {fileID: 1713949207740603810}
+  upgradeDescription: {fileID: 209303305093881355}
+  upgradeIcon: {fileID: 3700003391296307937}

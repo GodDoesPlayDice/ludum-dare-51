@@ -16,12 +16,17 @@ public class UpgradeManager : MonoBehaviour
 
     void Start()
     {
-        // TODO: LOAD ALL UPGRADES
-        allUpgrades = Resources.LoadAll<Upgrade>("Upgrades");
+        if (allUpgrades == null)
+        {
+            LoadAllUpgrades();
+        }
 
-        Debug.Log(allUpgrades.Length);
+        //Debug.Log(allUpgrades.Length);
 
-        FillUpgradeWeights();
+        if (upgradeWeights == null)
+        {
+            FillUpgradeWeights();
+        }
     }
 
     public Upgrade[] GetCurrentAvailableUpgrades()
@@ -40,8 +45,21 @@ public class UpgradeManager : MonoBehaviour
 
     private Upgrade GetRandomUpgrade()
     {
+        if (allUpgrades == null)
+        {
+            LoadAllUpgrades();
+        }
+        if (upgradeWeights == null)
+        {
+            FillUpgradeWeights();
+        }
         var index = upgradeWeights[Random.Range(0, upgradeWeights.Length)];
         return allUpgrades[index];
+    }
+
+    private void LoadAllUpgrades()
+    {
+        allUpgrades = Resources.LoadAll<Upgrade>("Upgrades");
     }
 
     private void FillUpgradeWeights()
