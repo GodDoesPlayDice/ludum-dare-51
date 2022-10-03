@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotation : MonoBehaviour
+namespace UI
 {
-    public float speedMod = 1.0f;
-    private Vector3 point;
-
-    void Start()
+    public class Rotation : MonoBehaviour
     {
-        point = new Vector3(0.0f, 1.0f, 0.0f);
-        transform.LookAt(point);
-    }
+        public float speedMod = 1.0f;
+        private Vector3 _point;
 
-    void Update()
-    {
-        transform.RotateAround(point, new Vector3(0.0f, 1.0f, 0.0f), 20 * Time.deltaTime * speedMod);
+        private void Start()
+        {
+            _point = new Vector3(0.0f, 1.0f, 0.0f);
+            transform.LookAt(_point);
+        }
+
+        private void Update()
+        {
+            transform.RotateAround(_point, new Vector3(0.0f, 1.0f, 0.0f), 20 * Time.deltaTime * speedMod);
+        }
     }
 }

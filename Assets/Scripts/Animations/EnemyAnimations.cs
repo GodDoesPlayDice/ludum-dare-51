@@ -1,11 +1,10 @@
-using System;
 using AI;
 using AI.States;
 using UnityEngine;
 
 public class EnemyAnimations : CharacterAnimations
 {
-    private EnemyController _controller;
+    private Enemy _controller;
     private StateManager _stateManager;
     private AttackState _attackState;
     private float _targetSpeed;
@@ -18,7 +17,7 @@ public class EnemyAnimations : CharacterAnimations
     protected override void Awake()
     {
         base.Awake();
-        _controller = GetComponent<EnemyController>();
+        _controller = GetComponent<Enemy>();
         _stateManager = GetComponentInChildren<StateManager>();
         _attackState = _stateManager.GetComponentInChildren<AttackState>();
         _stateManager.OnStateChange += OnStateChange;
