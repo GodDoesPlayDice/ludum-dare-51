@@ -21,7 +21,7 @@ public class CharacterAnimations : MonoBehaviour
         _prevHealth = Character.Health;
     }
 
-    private void Start()
+    protected void Start()
     {
         Character.OnHealthChange += health =>
         {
@@ -33,14 +33,6 @@ public class CharacterAnimations : MonoBehaviour
             _prevHealth = Character.Health;
         };
 
-        Character.OnIsAliveChange += isAlive =>
-        {
-            if (_alreadyDead && isAlive)
-                _alreadyDead = false;
-            if (_alreadyDead)
-                return;
-            _alreadyDead = !isAlive;
-            Animator.SetTrigger(!isAlive ? Death : Revive);
-        };
+        Character.OnIsAliveChange += isAlive => { Animator.SetTrigger(!isAlive ? Death : Revive); };
     }
 }

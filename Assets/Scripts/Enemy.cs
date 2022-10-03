@@ -124,19 +124,10 @@ public class Enemy : Character
 
         OnIsAliveChange += isAlive =>
         {
-            if (!isAlive)
-            {
-                Agent.isStopped = true;
-                Agent.enabled = false;
-                tag = "Untagged";
-            }
-            else if (!IsAlive)
-            {
-                // revive
-                Agent.isStopped = false;
-                Agent.enabled = true;
-                tag = "Enemy";
-            }
+            if (isAlive) return;
+            Agent.isStopped = true;
+            Agent.enabled = false;
+            tag = "Untagged";
         };
     }
 }

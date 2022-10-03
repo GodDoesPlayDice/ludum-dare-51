@@ -31,6 +31,8 @@ public class EnemyAnimations : CharacterAnimations
 
     private void OnStateChange(State newState)
     {
+        if (!_controller.IsAlive)
+            return;
         if (newState == _stateManager.AttackState)
             Animator.SetTrigger(_attackState.CurrentAttackType == AttackType.Light ? LightAttack : HeavyAttack);
         if (newState == _stateManager.ChaseState)
