@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace UI
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private Button showUpgradesButton;
         [SerializeField] private Slider timeSlider;
+        [SerializeField] private GameObject upgradeAvailableText;
 
         private Character _character;
         private Stamina _stamina;
@@ -80,6 +82,9 @@ namespace UI
             showUpgradesButton.GetComponentInChildren<TMP_Text>().text = lvlAvailable.ToString();
             var available = lvlAvailable > 0;
             showUpgradesButton.interactable = available;
+            upgradeAvailableText.gameObject.SetActive(available);
+            if (available)
+                upgradeAvailableText.transform.DOPunchRotation(new Vector3(0f, 0f, 10f), .5f).SetLoops(10000);
             //var colors = showUpgradesButton.colors;
             //colors.normalColor = available ? new Color(144, 183, 125) : Color.gray;
         }
