@@ -1,5 +1,6 @@
 ﻿using Sound;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -19,6 +20,13 @@ namespace StarterAssets
         public float MoveSpeed = 2.0f;
 
         [SerializeField] [Range(0, 1f)] private float directMovementBlend = 0.4f;
+        [SerializeField] [Range(0, 30f)] private float oneSecondSprintStaminaCost = 20f;
+
+        [field: SerializeField]
+        [field: Range(0, 50f)]
+        public float JumpStaminaCost { get; private set; } = 30f;
+        
+        [SerializeField] [Range(0, 50f)] private float staminaRegenPerSecond = 5f;
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
@@ -125,6 +133,7 @@ namespace StarterAssets
         #region OurVars
 
         private Character _character;
+        private Stamina _stamina;
         private bool _isMovementEnabled = true;
         private float _directMoveDelay;
 
@@ -134,6 +143,7 @@ namespace StarterAssets
         private void Awake()
         {
             _character = GetComponent<Character>();
+            _stamina = GetComponent<Stamina>();
             _character.OnIsAliveChange += isAlive => { _isMovementEnabled = isAlive; };
 
             // get a reference to our main camera
@@ -166,10 +176,12 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-
             JumpAndGravity();
             GroundedCheck();
             Move();
+
+            if (!(_input.sprint && _input.move != Vector2.zero))
+                _stamina.CurrentStamina += staminaRegenPerSecond * Time.deltaTime;
         }
 
         private void LateUpdate()
@@ -227,7 +239,7 @@ namespace StarterAssets
             if (!_isMovementEnabled)
                 return;
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.sprint && _stamina.CurrentStamina > 0 ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -279,6 +291,9 @@ namespace StarterAssets
                 _directMoveDelay += Time.deltaTime;
                 if (_directMoveDelay > 1f)
                     _directMoveDelay = 1f;
+
+                if (_input.sprint && _speed > MoveSpeed)
+                    _stamina.CurrentStamina -= oneSecondSprintStaminaCost * Time.deltaTime;
             }
             else
             {
@@ -337,7 +352,7 @@ namespace StarterAssets
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDJump, true);
-                    }
+                    } 
                 }
 
                 // jump timeout
