@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuMusic: {fileID: 8300000, guid: 6d2e2db0b97a8c84e9b7aba22496d5fe, type: 3}
-  gameplayMusic: {fileID: 8300000, guid: d4812a7fd7763462d98915306bcc2a48, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 7f93139cf1136454e9c8bf1fc76fbcf6, type: 3}
   sfxSource: {fileID: 2257975013959148812}
   musicSource01: {fileID: 2257975014441322289}
   musicSource02: {fileID: 267204983199980281}

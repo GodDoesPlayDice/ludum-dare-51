@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: 652184b64ca82478ba2b81e1a23cdab1
   - enabled: 1
-    path: Assets/Scenes/CharacterController.unity
-    guid: 7c919bc946cb54169a28d5fe7e42b95f
+    path: Assets/Scenes/Arena.unity
+    guid: 9a93cf68f93716f489c4daf80ce4cf5d
   m_configObjects: {}
