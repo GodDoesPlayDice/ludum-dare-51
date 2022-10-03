@@ -68,8 +68,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 44f83d03ae9094ed7b47d92e8a2909d2, type: 2}
+  m_sharedMaterial: {fileID: -79334210978571911, guid: 44f83d03ae9094ed7b47d92e8a2909d2,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -207,8 +208,9 @@ MonoBehaviour:
 
     Description'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 44f83d03ae9094ed7b47d92e8a2909d2, type: 2}
+  m_sharedMaterial: {fileID: -79334210978571911, guid: 44f83d03ae9094ed7b47d92e8a2909d2,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -569,3 +571,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeName: {fileID: 0}
   upgradeDescription: {fileID: 0}
+  upgradeIcon: {fileID: 0}
