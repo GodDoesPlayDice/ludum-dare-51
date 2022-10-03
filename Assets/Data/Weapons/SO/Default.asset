@@ -18,7 +18,7 @@ MonoBehaviour:
   currentLvl: 1
   cost: 0
   upgradeCost: 1
-  damage: 3
+  damage: 4
   upgradeDamage: 1
   coolDown: 0.5
   distance: 10

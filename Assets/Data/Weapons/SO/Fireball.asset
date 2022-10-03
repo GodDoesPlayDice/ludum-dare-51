@@ -18,10 +18,10 @@ MonoBehaviour:
   currentLvl: 0
   cost: 1
   upgradeCost: 2
-  damage: 15
+  damage: 20
   upgradeDamage: 5
   coolDown: 2
   distance: 10
-  aoeArea: 0
+  aoeArea: 1
   orbColor: {r: 0.8773585, g: 0.28437707, b: 0.0033107214, a: 1}
   prefab: {fileID: 1294834399362254, guid: 4d46a88382f3c124c93b73ffeb016270, type: 3}

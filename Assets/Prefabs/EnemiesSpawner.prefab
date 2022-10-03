@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initCost: 2
   costPerSecond: 0.1
-  costChangeSpeed: 0.04
+  costChangeSpeed: 0.03
   initThreshold: 2
   thresholdPerSecond: 0.08
   maxTries: 5
