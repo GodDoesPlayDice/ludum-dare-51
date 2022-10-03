@@ -4,8 +4,9 @@ using UnityEngine;
 
 public enum UpgradeType
 {
-    LIFE,
-    DAMAGE,
+    MAX_LIFE,
+    HEAL,
+    ADD_DAMAGE_PERCENT,
     COOLDOWN,
     MOVESPEED,
     MAGIC_MISSILE,

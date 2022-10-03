@@ -7,6 +7,8 @@ public class UpgradeManager : MonoBehaviour
 {
     public int upgradesPerLvl = 3;
 
+    public int levelsAvailable;
+
     private Upgrade[] allUpgrades;
     private int[] upgradeWeights;
 
@@ -14,7 +16,9 @@ public class UpgradeManager : MonoBehaviour
 
     void Start()
     {
-        
+        // TODO: LOAD ALL UPGRADES
+
+        FillUpgradeWeights();
     }
 
     public Upgrade[] GetCurrentAvailableUpgrades()
@@ -24,8 +28,9 @@ public class UpgradeManager : MonoBehaviour
             var uniqueUpgrades = new HashSet<Upgrade>();
             while (uniqueUpgrades.Count < upgradesPerLvl)
             {
-
+                uniqueUpgrades.Add(GetRandomUpgrade());
             }
+            currentLvlUpgrades = uniqueUpgrades.ToArray();
         }
         return currentLvlUpgrades;
     }
@@ -38,6 +43,15 @@ public class UpgradeManager : MonoBehaviour
 
     private void FillUpgradeWeights()
     {
-
+        var tmpWeightList = new List<int>();
+        for (int ind = 0; ind < allUpgrades.Length; ind ++)
+        {
+            var upgrade = allUpgrades[ind];
+            for (int i = 0; i < upgrade.weight; i ++)
+            {
+                tmpWeightList.Add(ind);
+            }
+        }
+        upgradeWeights = tmpWeightList.ToArray();
     }
 }
