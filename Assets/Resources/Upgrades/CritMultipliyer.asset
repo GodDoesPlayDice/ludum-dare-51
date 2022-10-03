@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba9baf13b9a9b249bb0dc02b28391dc, type: 3}
   m_Name: CritMultipliyer
   m_EditorClassIdentifier: 
+  active: 1
   icon: {fileID: 2800000, guid: 0825dfa25de4551469e65496af7b3c71, type: 3}
   upgradeName: Increase crit multipliyer
-  description: +10% crit multipliyer
+  description: +20% crit multipliyer
   weight: 5
   upgradeAction:
   - type: 6
-    value: 10
+    value: 20
