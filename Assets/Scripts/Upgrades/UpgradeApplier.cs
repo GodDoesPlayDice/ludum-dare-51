@@ -23,42 +23,43 @@ public class UpgradeApplier : MonoBehaviour
 
     private void ApplyAction(UpgradeAction action)
     {
-        switch (action.type)
+        if (action.type == UpgradeType.INC_MAX_LIFE)
         {
-            case UpgradeType.INC_MAX_LIFE:
-                GetCharacter().MaxHealth += action.value;
-                break;
-            case UpgradeType.HEAL:
-                var player = GetCharacter();
-                player.Heal(player.MaxHealth / 100f * action.value);
-                break;
-            case UpgradeType.INC_DAMAGE_PERCENT:
-                GetWeaponsManager().IncreaseDamagePercent(action.value);
-                break;
-            case UpgradeType.INC_ATTACK_RATE:
-
-                break;
-
-            case UpgradeType.INC_MOVESPEED:
-                
-                break;
-            case UpgradeType.MAGIC_MISSILE:
-                var weaponManager = GetWeaponsManager();
-                weaponManager.AddWeapon(weaponManager.allWeapons.Where(it => it.weaponName == "Default").First());
-                break;
-            case UpgradeType.FIREBALL:
-                //var weaponManager = GetWeaponsManager();
-                //weaponManager.AddWeapon(weaponManager.allWeapons.Where(it => it.weaponName == "Fireball").First());
-                break;
-            case UpgradeType.INC_CRIT_CHANCE:
-                
-                break;
-            case UpgradeType.INC_CRIT_MULTIPLIYER:
-                
-                break;
-            case UpgradeType.INC_STAMINA:
-                
-                break;
+            GetCharacter().MaxHealth += action.value;
+        }
+        else if (action.type == UpgradeType.HEAL)
+        {
+            var player = GetCharacter();
+            player.Heal(player.MaxHealth / 100f * action.value);
+        }
+        else if (action.type == UpgradeType.INC_DAMAGE_PERCENT)
+        {
+            GetWeaponsManager().IncreaseDamagePercent(action.value);
+        }
+        else if (action.type == UpgradeType.INC_ATTACK_RATE)
+        {
+        }
+        else if (action.type == UpgradeType.INC_MOVESPEED)
+        {
+        }
+        else if (action.type == UpgradeType.MAGIC_MISSILE)
+        {
+            var weaponManager = GetWeaponsManager();
+            weaponManager.AddWeapon(weaponManager.allWeapons.Where(it => it.weaponName == "Default").First());
+        }
+        else if (action.type == UpgradeType.FIREBALL)
+        {
+            //var weaponManager = GetWeaponsManager();
+            //weaponManager.AddWeapon(weaponManager.allWeapons.Where(it => it.weaponName == "Fireball").First());
+        }
+        else if (action.type == UpgradeType.INC_CRIT_CHANCE)
+        {
+        }
+        else if (action.type == UpgradeType.INC_CRIT_MULTIPLIYER)
+        {
+        }
+        else if (action.type == UpgradeType.INC_STAMINA)
+        {
         }
     }
 
