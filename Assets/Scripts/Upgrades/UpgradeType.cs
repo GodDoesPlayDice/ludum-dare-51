@@ -9,6 +9,8 @@ public enum UpgradeType
     ADD_DAMAGE_PERCENT,
     COOLDOWN,
     MOVESPEED,
+    CRIT_CHANCE,
+    CRIT_MULTIPLIYER,
     MAGIC_MISSILE,
     FIREBALL
 
