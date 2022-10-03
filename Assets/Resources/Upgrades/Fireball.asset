@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba9baf13b9a9b249bb0dc02b28391dc, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 2800000, guid: 300abdf8cbdd5c742a05b6506767fd64, type: 3}
   upgradeName: Fireball
   description: +1 fireball orb
   weight: 1

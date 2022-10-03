@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba9baf13b9a9b249bb0dc02b28391dc, type: 3}
   m_Name: CritChance
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 2800000, guid: 37de44bcb59b8174497def1957cc490b, type: 3}
   upgradeName: Increase crit chance
   description: +5% crit chance
   weight: 5

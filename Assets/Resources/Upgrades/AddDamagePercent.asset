@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba9baf13b9a9b249bb0dc02b28391dc, type: 3}
   m_Name: AddDamagePercent
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 2800000, guid: 61dab0b6e506c6a43b12d9fde15b2393, type: 3}
   upgradeName: Increase damage
   description: +5% damage
   weight: 5

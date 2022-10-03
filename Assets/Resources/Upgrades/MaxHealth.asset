@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba9baf13b9a9b249bb0dc02b28391dc, type: 3}
   m_Name: MaxHealth
   m_EditorClassIdentifier: 
-  icon: {fileID: 2800000, guid: 1f38246ce1711374e87758d8dd668fa9, type: 3}
+  icon: {fileID: 2800000, guid: ee40d72ece864764f9d17d015aedb524, type: 3}
   upgradeName: Max health
   description: +10 maximum health
   weight: 5
