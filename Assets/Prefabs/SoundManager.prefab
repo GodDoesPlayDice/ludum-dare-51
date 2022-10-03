@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8569d5b95438f8c4b85b3f18a657fc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuMusic: {fileID: 8300000, guid: 7dc48ac47b618424f8d032a339525809, type: 3}
+  menuMusic: {fileID: 8300000, guid: 6d2e2db0b97a8c84e9b7aba22496d5fe, type: 3}
   gameplayMusic: {fileID: 8300000, guid: d4812a7fd7763462d98915306bcc2a48, type: 3}
   sfxSource: {fileID: 2257975013959148812}
   musicSource01: {fileID: 2257975014441322289}
