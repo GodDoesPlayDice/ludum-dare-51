@@ -2,17 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sound;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.Rendering.Universal;
 using static UnityEngine.Rendering.DebugUI;
 
 public class WeaponController : MonoBehaviour
 {
-    public WeaponData data
-    {
-        get;
-        private set;
-    }
+    [SerializeField] private AudioClip _shootAudioClip;
+    [SerializeField] private AudioClip _hitAudioClip;
+    public WeaponData data { get; private set; }
     public bool shooting = true;
 
 
@@ -21,7 +21,7 @@ public class WeaponController : MonoBehaviour
 
     //private Vector3 currentTarget; // PRIVATE
     //public Transform targetTMP;
-    
+
 
     public void SetData(WeaponData data)
     {
@@ -37,7 +37,6 @@ public class WeaponController : MonoBehaviour
 
     void Start()
     {
-        
     }
 
     void Update()
@@ -74,11 +73,14 @@ public class WeaponController : MonoBehaviour
                 closestDist = dist;
             }
         }
+
         return closestDist <= data.distance ? closest : null;
     }
 
     public void Shoot(Vector3 target)
     {
+        if (_shootAudioClip != null)
+            SoundManager.Instance.PlaySfxAtPoint(_shootAudioClip, transform.position, .5f);
         var rotation = Quaternion.LookRotation((target - transform.position).normalized);
         var projectile = Instantiate(data.prefab, transform.position, rotation, transform);
         if (projectile.TryGetComponent<ParticleCollisionInstance>(out var coll))
@@ -89,12 +91,14 @@ public class WeaponController : MonoBehaviour
 
     public void OnProjectileCollide(GameObject projectile, GameObject target)
     {
+        if (_hitAudioClip != null)
+            SoundManager.Instance.PlaySfxAtPoint(_hitAudioClip, transform.position, .5f);
         var enemies = new HashSet<Enemy>();
         if (target.TryGetComponent<Enemy>(out var enemyCollided))
         {
             enemies.Add(enemyCollided);
         }
-        
+
         if (data.aoeArea > 0)
         {
             var colliders = Physics.OverlapSphere(projectile.transform.position, data.aoeArea);
@@ -107,6 +111,7 @@ public class WeaponController : MonoBehaviour
                 }
             }
         }
+
         foreach (var enemy in enemies)
         {
             enemy.Damage(damageModifierFunction(data.damage));

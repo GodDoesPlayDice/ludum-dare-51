@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0ef2add37f9d2649a2ef9815925ca58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shootAudioClip: {fileID: 8300000, guid: 51cf9bff0b8c04eaba9219784ecd1762, type: 3}
+  _hitAudioClip: {fileID: 8300000, guid: 0cd6cd7926d0e4425b0a14786fbc7d78, type: 3}
   shooting: 1
 --- !u!198 &8504533883644135082
 ParticleSystem:
