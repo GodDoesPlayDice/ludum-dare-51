@@ -11,6 +11,7 @@ namespace StarterAssets
         public Vector2 look;
         public bool jump;
         public bool esc;
+        public bool upgrades;
         public bool sprint;
 
         [Header("Movement Settings")] public bool analogMovement;
@@ -37,6 +38,10 @@ namespace StarterAssets
         public void OnEsc(InputValue value)
         {
             EscInput(value.isPressed);
+        }
+        public void OnUpgrades(InputValue value)
+        {
+            UpgradesInput(value.isPressed);
         }
 
         public void OnJump(InputValue value)
@@ -80,6 +85,10 @@ namespace StarterAssets
         private void EscInput(bool newEscState)
         {
             esc = newEscState;
+        }
+        private void UpgradesInput(bool newUpgradesState)
+        {
+            upgrades = newUpgradesState;
         }
 
         public void SprintInput(bool newSprintState)
