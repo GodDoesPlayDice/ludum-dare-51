@@ -16,20 +16,20 @@ public class UpgradeApplier : MonoBehaviour
     {
         switch (action.type)
         {
-            case UpgradeType.MAX_LIFE:
+            case UpgradeType.INC_MAX_LIFE:
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Character>().MaxHealth += action.value;
                 break;
             case UpgradeType.HEAL:
 
                 break;
-            case UpgradeType.ADD_DAMAGE_PERCENT:
+            case UpgradeType.INC_DAMAGE_PERCENT:
 
                 break;
-            case UpgradeType.COOLDOWN:
+            case UpgradeType.INC_ATTACK_RATE:
 
                 break;
 
-            case UpgradeType.MOVESPEED:
+            case UpgradeType.INC_MOVESPEED:
 
                 break;
             case UpgradeType.MAGIC_MISSILE:
@@ -37,6 +37,15 @@ public class UpgradeApplier : MonoBehaviour
                 break;
             case UpgradeType.FIREBALL:
 
+                break;
+            case UpgradeType.INC_CRIT_CHANCE:
+                
+                break;
+            case UpgradeType.INC_CRIT_MULTIPLIYER:
+                
+                break;
+            case UpgradeType.INC_STAMINA:
+                
                 break;
         }
     }

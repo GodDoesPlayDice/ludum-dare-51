@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ba9baf13b9a9b249bb0dc02b28391dc, type: 3}
-  m_Name: CritMultipliyer
+  m_Name: Stamina
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  upgradeName: Increase crit multipliyer
-  description: +10% crit multipliyer
+  upgradeName: Increase max stamina
+  description: +10 maximum stamina
   weight: 5
   upgradeAction:
-  - type: 6
+  - type: 7
     value: 10

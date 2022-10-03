@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: CritChance
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  upgradeName: 
-  description: 
-  weight: 0
-  upgradeAction: []
+  upgradeName: Increase crit chance
+  description: +5% crit chance
+  weight: 5
+  upgradeAction:
+  - type: 5
+    value: 5
