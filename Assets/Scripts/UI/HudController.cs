@@ -7,31 +7,27 @@ namespace UI
 {
     public class HudController : MonoBehaviour
     {
+        [SerializeField] private Slider staminaSlider;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TextMeshProUGUI healthText;
-        [SerializeField] private Button showUpgradesButton;
-        [SerializeField] private Slider timeSlider;
 
         private Character _character;
-        private UpgradeManager _upgradeManager;
-        private Timer _timer;
+        private Stamina _stamina;
 
         private void Awake()
         {
             _character = GetComponentInParent<Character>();
-            _upgradeManager = GameObject.FindGameObjectWithTag("Upgrade").GetComponent<UpgradeManager>();
-            _timer = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+            _stamina = _character.GetComponent<Stamina>();
 
             UpdateHealth(_character.Health);
+            UpdateMaxHealth(_character.MaxHealth);
+            UpdateStamina(_stamina.CurrentStamina);
+            UpdateMaxStamina(_stamina.MaxStamina);
+
             _character.OnHealthChange += UpdateHealth;
             _character.OnMaxHealthChange += UpdateMaxHealth;
-            _upgradeManager.OnAvailableLvlChange += UpdateUpgradeButtonLevel;
-            _timer.OnCurrentCycleTimeChange += UpdateTimer;
-        }
-
-        private void OnEnable()
-        {
-            //UpdateUpgradeButtonLevel(_upgradeManager.LevelsAvailable);
+            _stamina.OnCurrentStaminaChange += UpdateStamina;
+            _stamina.OnMaxStaminaChange += UpdateMaxStamina;
         }
 
         private void UpdateHealth(float health)
@@ -48,24 +44,17 @@ namespace UI
             healthText.text = $"{_character.Health}/{maxHealth}";
         }
 
-        private void UpdateUpgradeButtonLevel(int lvlAvailable)
+        private void UpdateStamina(float stamina)
         {
-            showUpgradesButton.GetComponentInChildren<TMP_Text>().text = lvlAvailable.ToString();
-            var available = lvlAvailable > 0;
-            showUpgradesButton.interactable = available;
-            //var colors = showUpgradesButton.colors;
-            //colors.normalColor = available ? new Color(144, 183, 125) : Color.gray;
+            if (_stamina.MaxStamina != 0)
+
+                staminaSlider.value = stamina / _stamina.MaxStamina;
         }
 
-        private void UpdateTimer(float time)
+        private void UpdateMaxStamina(float maxStamina)
         {
-            timeSlider.value = time;
-        }
-
-        public void ShowUpgradePanel()
-        {
-            Debug.Log("PRESSED");
-            GameObject.FindGameObjectWithTag("UpgradePanel").GetComponent<UpgradeMenuController>().Show();
+            if (maxStamina != 0)
+                staminaSlider.value = _stamina.CurrentStamina / maxStamina;
         }
     }
 }
