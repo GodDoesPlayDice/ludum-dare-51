@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: StaminaRecovery
   m_EditorClassIdentifier: 
   active: 1
-  icon: {fileID: 0}
-  upgradeName: 
-  description: 
-  weight: 0
-  upgradeAction: []
+  icon: {fileID: 2800000, guid: 08c71e4e0565fe4469d1e0a593047156, type: 3}
+  upgradeName: Increase stamina recovery
+  description: +10% stamina recovery
+  weight: 5
+  upgradeAction:
+  - type: 10
+    value: 10
