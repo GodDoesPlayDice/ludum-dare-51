@@ -28,7 +28,7 @@ public class Death : MonoBehaviour
         _character.enabled = false;
 
         if (_character is Enemy)
-            transform.DOMoveY(transform.position.y - 3, 30f).OnComplete(() => OnReadyToPool?.Invoke(gameObject));
+            transform.DOMoveY(transform.position.y - 2, 10f).OnComplete(() => OnReadyToPool?.Invoke(gameObject));
         else
         {
             var deathScreen = _character.GetComponentInChildren<DeathScreen>();
