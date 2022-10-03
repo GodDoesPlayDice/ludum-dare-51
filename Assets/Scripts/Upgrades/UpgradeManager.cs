@@ -26,10 +26,17 @@ public class UpgradeManager : MonoBehaviour
 
     private Upgrade[] currentLvlUpgrades;
 
+    private int appliedUpgrades = 0;
+    private Timer _timer;
+
+
     public event Action<int> OnAvailableLvlChange;
 
     void Start()
     {
+        _timer = GameObject.FindGameObjectWithTag("Timer").GetComponent<Timer>();
+        _timer.OnCycleChange += (cycle) => LevelsAvailable = cycle - appliedUpgrades;
+
         if (allUpgrades == null)
         {
             LoadAllUpgrades();
@@ -53,6 +60,13 @@ public class UpgradeManager : MonoBehaviour
             currentLvlUpgrades = uniqueUpgrades.ToArray();
         }
         return currentLvlUpgrades;
+    }
+
+    public void UpgradeApplied()
+    {
+        appliedUpgrades++;
+        currentLvlUpgrades = null;
+        LevelsAvailable--;
     }
 
     private Upgrade GetRandomUpgrade()
