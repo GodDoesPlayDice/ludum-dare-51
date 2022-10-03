@@ -507,7 +507,7 @@ PrefabInstance:
     - target: {fileID: 51658677424399928, guid: bcfa79c3309d44c5d9db0119913db7bd,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 51658677424399928, guid: bcfa79c3309d44c5d9db0119913db7bd,
         type: 3}
@@ -848,6 +848,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -171.46603
       objectReference: {fileID: 0}
+    - target: {fileID: 6621319529338189050, guid: aecbfec3f73c44a078c9e1a3b6209923,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7123528621533219597, guid: aecbfec3f73c44a078c9e1a3b6209923,
         type: 3}
       propertyPath: m_RootOrder
@@ -960,18 +965,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aecbfec3f73c44a078c9e1a3b6209923, type: 3}
---- !u!114 &1440408567 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3763873899057320304, guid: aecbfec3f73c44a078c9e1a3b6209923,
-    type: 3}
-  m_PrefabInstance: {fileID: 1440408566}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d5467910214455ba1b7f19e80a6f847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1699406335
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,10 +1903,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponsManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7652568172885847707, guid: ae2dd021dc04537419a59e57fd3f445a,
-        type: 3}
-      propertyPath: targetToFollow
-      value: 
-      objectReference: {fileID: 1440408567}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae2dd021dc04537419a59e57fd3f445a, type: 3}
