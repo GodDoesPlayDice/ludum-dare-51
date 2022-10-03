@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using StarterAssets;
 using UnityEngine;
 
 public class UpgradeMenuController : MonoBehaviour
@@ -8,12 +10,29 @@ public class UpgradeMenuController : MonoBehaviour
     private UpgradeManager upgradeManager;
     private UpgradeApplier upgradeApplier;
 
+    private StarterAssetsInputs _inputs; 
+    private void Awake()
+    {
+        _inputs = GetComponentInParent<StarterAssetsInputs>();
+    }
+
     private void Start()
     {
-        if (upgradeManager == null) {
+        if (upgradeManager == null)
+        {
             InitUpgradeFields();
         }
     }
+
+    private void Update()
+    {
+        if (!panelObject.activeSelf && _inputs.upgrades)
+        {
+            _inputs.upgrades = false;
+            Show();
+        }
+    }
+
     private void InitUpgradeFields()
     {
         var upgradeObj = GameObject.FindGameObjectWithTag("Upgrade");
@@ -29,6 +48,7 @@ public class UpgradeMenuController : MonoBehaviour
             upgradeItems.ToList().ForEach(it => it.Clear());
             return;
         }
+
         for (int i = 0; i < upgradeList.Length; i++)
         {
             upgradeItems[i].SetUpgrade(upgradeList[i]);
@@ -44,13 +64,14 @@ public class UpgradeMenuController : MonoBehaviour
             Hide();
         }
     }
-    
+
     public bool Show()
     {
         if (upgradeManager.LevelsAvailable <= 0)
         {
             return false;
         }
+
         panelObject.SetActive(true);
 
         FillFields(upgradeManager.GetCurrentAvailableUpgrades());
