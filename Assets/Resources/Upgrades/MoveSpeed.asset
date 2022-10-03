@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba9baf13b9a9b249bb0dc02b28391dc, type: 3}
   m_Name: MoveSpeed
   m_EditorClassIdentifier: 
+  active: 1
   icon: {fileID: 2800000, guid: 6960c6bd5088317429f7e0e033bee813, type: 3}
   upgradeName: Increae movement speed
   description: +5% movement speed

@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 2800000, guid: 0825dfa25de4551469e65496af7b3c71, type: 3}
   upgradeName: Increase crit multipliyer
   description: +20% crit multipliyer
-  weight: 5
+  weight: 6
   upgradeAction:
   - type: 6
     value: 20

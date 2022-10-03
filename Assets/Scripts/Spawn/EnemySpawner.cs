@@ -86,7 +86,7 @@ public class EnemySpawner : MonoBehaviour
         if (list == null || list.Count == 0)
         {
             result = Instantiate(data.prefab, new Vector3(0f, -8f, 0f), Quaternion.identity, transform);
-            result.GetComponent<Death>().OnReadyToPool += obj => BackToPool(data, obj);
+            result.GetComponent<Death>().OnReadyToPool += obj => Destroy(obj);
         } else
         {
             result = list[0];
