@@ -13,6 +13,9 @@ namespace UI.Screens
         [SerializeField] private Button playButton;
         [SerializeField] private Button exitButton;
 
+        [SerializeField] private TMP_Text playTime;
+        [SerializeField] private Timer timer;
+
         private int _nextSceneIndex;
 
         protected override void Awake()
@@ -23,7 +26,12 @@ namespace UI.Screens
 
             LoadingScreenController.Instance.OnShowEnded += () => { SceneManager.LoadScene(_nextSceneIndex); };
             ToggleFullScreen(false);
-        } 
+        }
+
+        private void OnEnable()
+        {
+            playTime.text = $"Survived for: {Math.Round(timer.fullTime)} seconds";
+        }
 
         protected override void OnExitClicked()
         {
