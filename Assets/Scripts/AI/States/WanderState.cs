@@ -15,6 +15,8 @@ namespace AI.States
 
         public override State RunCurrentState()
         {
+            if (!Controller.IsAlive)
+                return StateManager.IdleState;
             if (Controller.ShouldAttackTarget)
                 return StateManager.AttackState;
 

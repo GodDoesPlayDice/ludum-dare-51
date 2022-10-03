@@ -5,14 +5,14 @@ using UnityEngine;
 public class PauseController : MonoBehaviour
 {
     private StarterAssetsInputs _inputs;
-    private MenuController _menuController;
+    private PauseScreen _pauseScreen;
 
     private bool _isPaused;
 
     private void Awake()
     {
         _inputs = GetComponent<StarterAssetsInputs>();
-        _menuController = GetComponentInChildren<MenuController>();
+        _pauseScreen = GetComponentInChildren<PauseScreen>();
     }
 
     private void Update()
@@ -25,7 +25,7 @@ public class PauseController : MonoBehaviour
     {
         _isPaused = isPause;
         _inputs.esc = false;
-        _menuController.ToggleWholeScreen(isPause);
+        _pauseScreen.ToggleFullScreen(isPause);
         Time.timeScale = _isPaused ? 0f : 1f;
     }
 }

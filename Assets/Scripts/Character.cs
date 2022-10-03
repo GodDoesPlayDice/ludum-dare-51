@@ -5,12 +5,12 @@ public class Character : MonoBehaviour
 {
     public float MaxHealth
     {
-        get => _maxHealth;
+        get => maxHealth;
         set
         {
-            if (!Mathf.Approximately(value, _maxHealth))
+            if (!Mathf.Approximately(value, maxHealth))
                 OnMaxHealthChange?.Invoke(value);
-            _maxHealth = value;
+            maxHealth = value;
         }
     }
 
@@ -61,7 +61,7 @@ public class Character : MonoBehaviour
 
     // private backing fields
     private bool _isAlive = true;
-    [SerializeField] private float _maxHealth;
+    [SerializeField] private float maxHealth;
     private float _health;
     private Vector3 _velocity;
     private Vector3 _targetPosition;
@@ -80,7 +80,6 @@ public class Character : MonoBehaviour
 
     protected virtual void Awake()
     {
-        // MaxHealth = 100f;
         Health = MaxHealth;
     }
 

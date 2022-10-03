@@ -14,6 +14,9 @@ namespace AI.States
 
         public override State RunCurrentState()
         {
+            if (!Controller.IsAlive)
+                return StateManager.IdleState;
+
             Agent.speed = Controller.ChaseSpeed;
             _targetPos = Controller.TargetPosition +
                          (transform.position - Controller.TargetPosition).normalized *
