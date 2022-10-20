@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using TMPro;
+using UI.Screens;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +14,11 @@ namespace UI
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TextMeshProUGUI healthText;
 
+        [SerializeField] private Button pauseButton;
+
         private Character _character;
         private Stamina _stamina;
+        private PauseController _pauseController;
 
         private UpgradeMenuController _upgradeMenu;
 
@@ -22,6 +26,7 @@ namespace UI
         {
             _character = GetComponentInParent<Character>();
             _stamina = _character.GetComponent<Stamina>();
+            _pauseController = _character.GetComponent<PauseController>();
             _upgradeMenu = _character.GetComponentInChildren<UpgradeMenuController>();
 
             UpdateHealth(_character.Health);
@@ -33,6 +38,12 @@ namespace UI
             _character.OnMaxHealthChange += UpdateMaxHealth;
             _stamina.OnCurrentStaminaChange += UpdateStamina;
             _stamina.OnMaxStaminaChange += UpdateMaxStamina;
+            
+            
+            pauseButton.onClick.AddListener(() =>
+            {
+                _pauseController.TogglePause(true, true);
+            });
         }
 
         public void ShowUpgradePanel()
