@@ -12,7 +12,7 @@ namespace UI
         [Header("Refs")] [SerializeField] private Slider staminaSlider;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TextMeshProUGUI healthText;
-        [SerializeField] private GameObject touchControls;
+        [SerializeField] private Transform touchControlsContainer;
 
         [SerializeField] private Button pauseButton;
 
@@ -47,7 +47,7 @@ namespace UI
             {
                 _deviceEventsListener.OnInputDeviceChange += device =>
                 {
-                    touchControls.SetActive(device == Touchscreen.current);
+                    touchControlsContainer.gameObject.SetActive(device == Touchscreen.current);
                 };
             }
         }
