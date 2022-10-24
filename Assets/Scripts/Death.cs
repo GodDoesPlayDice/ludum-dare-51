@@ -3,10 +3,13 @@ using System.Collections;
 using DG.Tweening;
 using UI.Screens;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class Death : MonoBehaviour
 {
     [SerializeField] [Range(0f, 10f)] float deathEffectsDelay = 3f;
+    [SerializeField] ParticleSystem deathParticle;
+    [SerializeField] GameObject mainModel;
 
     private Character _character;
 
@@ -34,7 +37,17 @@ public class Death : MonoBehaviour
         _character.enabled = false;
 
         if (_character is Enemy)
-            transform.DOMoveY(transform.position.y - 2, 10f).SetUpdate(true).OnComplete(() => OnReadyToPool?.Invoke(gameObject));
+        {
+            var mTransform = mainModel.transform;
+            var mStartPos = mTransform.position;
+            var mLocalStartPos = mTransform.localPosition;
+            mTransform.DOMoveY(mStartPos.y - 2, 5f).SetUpdate(true).OnComplete(() => {
+                OnReadyToPool?.Invoke(gameObject);
+                transform.position = mTransform.position;
+                mTransform.localPosition = mLocalStartPos; // Move model back to 0
+            });
+            deathParticle?.Play();
+        }
         else
         {
             var deathScreen = _character.GetComponentInChildren<DeathScreen>();

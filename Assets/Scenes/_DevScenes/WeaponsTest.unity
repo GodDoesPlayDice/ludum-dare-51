@@ -1850,6 +1850,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4461059368443830842, guid: 7266cf34238c62a448bdf374e8d65d6e,
+        type: 3}
+      propertyPath: costPerSecond
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461059368443830842, guid: 7266cf34238c62a448bdf374e8d65d6e,
+        type: 3}
+      propertyPath: costChangeSpeed
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 4461059368443830843, guid: 7266cf34238c62a448bdf374e8d65d6e,
         type: 3}
       propertyPath: m_RootOrder

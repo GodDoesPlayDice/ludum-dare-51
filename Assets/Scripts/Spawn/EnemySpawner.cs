@@ -107,7 +107,7 @@ public class EnemySpawner : MonoBehaviour
             var bnds = spawnCollider.bounds;
             var x = Random.Range(bnds.min.x, bnds.max.x);
             var z = Random.Range(bnds.min.z, bnds.max.z);
-            var curPos = new Vector3(x, bnds.min.y + 0.4f, z);
+            var curPos = new Vector3(x, bnds.min.y + 0.05f, z);
             if (enemies.Any(e => Vector3.Distance(curPos, e.transform.position) < 1))
             {
             } else

@@ -15,10 +15,16 @@ public class Revive : MonoBehaviour
     [SerializeField] GameObject mainModel;
 
     private Enemy _enemy;
+    private GameObject _player;
+    private ParticleSystem _reviveParticle;
+    private ParticleSystem _spawnParticle;
 
     private void Awake()
     {
         _enemy = GetComponent<Enemy>();
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _reviveParticle = reviveEffect.GetComponent<ParticleSystem>();
+        _spawnParticle = spawnEffect.GetComponent<ParticleSystem>();
 
         _enemy.OnStartSpawn += callback =>
         {
@@ -32,23 +38,25 @@ public class Revive : MonoBehaviour
         //_enemy.enabled = true;
         mainModel.SetActive(false);
         reviveEffect.SetActive(true);
+        _reviveParticle.Play();
         yield return new WaitForSeconds(reviveEffectsDelay);
         StartSpawn(callback);
     }
 
     public void StartSpawn(Action callback)
     {
+        _reviveParticle.Stop();
+        _spawnParticle.Play();
         mainModel.SetActive(true);
+        reviveEffect.transform.DOScale(0f, 0.3f);
         var ySize = gameObject.GetComponentInParent<Collider>().bounds.size.y;
-        //spawnEffect?.SetActive(true);
-        //mainModel.transform.localPosition = mainModel.transform.localPosition + new Vector3(0f, -ySize, 0f);
-        Debug.Log("Start--- " + (mainModel.transform.localPosition + new Vector3(0f, -ySize, 0f)));
-        Debug.Log("Start " + mainModel.transform.localPosition);
-        mainModel.transform.DOLocalMoveY(-ySize, spawnDuration).SetEase(Ease.OutQuart).From().OnComplete(() =>
+
+        // Do with sequence?
+        transform.DOLookAt(_player.transform.position, spawnDuration);
+        mainModel.transform.DOLocalMoveY(-(ySize * 1.1f), spawnDuration).SetEase(Ease.OutQuart).From().SetDelay(0.2f).OnComplete(() =>
         {
             Debug.Log("End " + mainModel.transform.localPosition);
-            reviveEffect.SetActive(false); // TODO: fade out
-            //spawnEffect?.SetActive(false);
+            _spawnParticle.Stop();
             callback.Invoke();
         });
     }
