@@ -20,7 +20,7 @@ public class Character : MonoBehaviour
     public bool IsAlive
     {
         get => _isAlive;
-        private set
+        protected set
         {
             if (value != _isAlive)
                 OnIsAliveChange?.Invoke(value);

@@ -1,4 +1,6 @@
 using AI;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -105,6 +107,8 @@ public class Enemy : Character
 
     public float lastAttackTime;
 
+    public event Action<Action> OnStartSpawn;
+
     #endregion
 
 
@@ -124,10 +128,44 @@ public class Enemy : Character
 
         OnIsAliveChange += isAlive =>
         {
-            if (isAlive) return;
-            Agent.isStopped = true;
-            Agent.enabled = false;
-            tag = "Untagged";
+            if (isAlive)
+            {
+            } else
+            {
+                SetBehaviorActive(false);
+            }
         };
+    }
+
+    public void Spawn()
+    {
+        SetBehaviorActive(false);
+        OnStartSpawn?.Invoke(() => {
+            SetBehaviorActive(true);
+        });
+    }
+
+    private void SetBehaviorActive(bool active)
+    {
+        if (active)
+        {
+            IsAlive = true;
+            StateManager.enabled = true;
+            GetComponent<Collider>().enabled = true;
+            Agent.enabled = true;
+            Agent.isStopped = false;
+            tag = "Enemy";
+        }
+        else
+        {
+            StateManager.enabled = false;
+            GetComponent<Collider>().enabled = false;
+            if (Agent.enabled)
+            {
+                Agent.isStopped = true;
+                Agent.enabled = false;
+            }
+            tag = "Untagged";
+        }
     }
 }
