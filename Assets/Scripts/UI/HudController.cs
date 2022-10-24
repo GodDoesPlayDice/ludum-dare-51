@@ -1,16 +1,15 @@
-using System;
-using DG.Tweening;
+using CharacterControl;
 using TMPro;
-using UI.Screens;
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class HudController : MonoBehaviour
     {
-        [SerializeField] private Slider staminaSlider;
+        [Header("Settings")] [SerializeField] private bool toggleTouchControlsOnDeviceChange = true;
+        [Header("Refs")] [SerializeField] private Slider staminaSlider;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private GameObject touchControls;
@@ -22,6 +21,7 @@ namespace UI
         private PauseController _pauseController;
 
         private UpgradeMenuController _upgradeMenu;
+        private InputDeviceEventsListener _deviceEventsListener;
 
         private void Awake()
         {
@@ -29,6 +29,7 @@ namespace UI
             _stamina = _character.GetComponent<Stamina>();
             _pauseController = _character.GetComponent<PauseController>();
             _upgradeMenu = _character.GetComponentInChildren<UpgradeMenuController>();
+            _deviceEventsListener = _character.GetComponent<InputDeviceEventsListener>();
 
             UpdateHealth(_character.Health);
             UpdateMaxHealth(_character.MaxHealth);
@@ -42,13 +43,13 @@ namespace UI
 
 
             pauseButton.onClick.AddListener(() => { _pauseController.TogglePause(true, true); });
-
-
-#if UNITY_ANDROID || UNITY_IOS
-            touchControls.SetActive(true);
-#else
-            touchControls.SetActive(false);
-#endif
+            if (toggleTouchControlsOnDeviceChange)
+            {
+                _deviceEventsListener.OnInputDeviceChange += device =>
+                {
+                    touchControls.SetActive(device == Touchscreen.current);
+                };
+            }
         }
 
         public void ShowUpgradePanel()
