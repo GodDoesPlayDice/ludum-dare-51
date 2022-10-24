@@ -2,6 +2,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TPS;
 using UnityEngine;
 
 public class UpgradeApplier : MonoBehaviour
@@ -93,9 +94,9 @@ public class UpgradeApplier : MonoBehaviour
         return GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
     }
 
-    private ThirdPersonController GetTPController()
+    private CharacterPhysics GetTPController()
     {
-        return GameObject.FindGameObjectWithTag("Player").GetComponent<ThirdPersonController>();
+        return GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterPhysics>();
     }
 
     private Stamina GetStamina()
