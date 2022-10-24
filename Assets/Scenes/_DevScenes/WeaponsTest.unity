@@ -1493,6 +1493,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 1792666859689757121, guid: 96a6ec62b80127445844270e5c275ed4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1792666859689757127, guid: 96a6ec62b80127445844270e5c275ed4,
         type: 3}
       propertyPath: m_RootOrder
@@ -1858,7 +1863,7 @@ PrefabInstance:
     - target: {fileID: 4461059368443830843, guid: 7266cf34238c62a448bdf374e8d65d6e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: 4461059368443830843, guid: 7266cf34238c62a448bdf374e8d65d6e,
         type: 3}
