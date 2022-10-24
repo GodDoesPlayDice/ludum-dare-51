@@ -19,13 +19,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float currentCost;
     [SerializeField] private float currentThreshold;
 
-    private BoxCollider collider;
+    private BoxCollider spawnCollider;
 
     private Dictionary<EnemySpawnData, List<GameObject>> enemiesPool = new Dictionary<EnemySpawnData, List<GameObject>>();
 
     private void Start()
     {
-        collider = GetComponent<BoxCollider>();
+        spawnCollider = GetComponent<BoxCollider>();
         currentCost = initCost;
         currentThreshold = initThreshold;
     }
@@ -86,12 +86,14 @@ public class EnemySpawner : MonoBehaviour
         if (list == null || list.Count == 0)
         {
             result = Instantiate(data.prefab, new Vector3(0f, -8f, 0f), Quaternion.identity, transform);
-            result.GetComponent<Death>().OnReadyToPool += obj => Destroy(obj);
+            //result.GetComponent<Death>().OnReadyToPool += obj => Destroy(obj);
+            result.GetComponent<Death>().OnReadyToPool += obj => BackToPool(data, obj);
         } else
         {
             result = list[0];
             list.RemoveAt(0);
         }
+        result.GetComponent<Enemy>().Spawn();
 
         return result;
     }
@@ -102,10 +104,10 @@ public class EnemySpawner : MonoBehaviour
         var position = Vector3.zero;
         for (int i = 0; i < maxTries; i ++)
         {
-            var bnds = collider.bounds;
+            var bnds = spawnCollider.bounds;
             var x = Random.Range(bnds.min.x, bnds.max.x);
             var z = Random.Range(bnds.min.z, bnds.max.z);
-            var curPos = new Vector3(x, 0.4f, z);
+            var curPos = new Vector3(x, bnds.min.y + 0.4f, z);
             if (enemies.Any(e => Vector3.Distance(curPos, e.transform.position) < 1))
             {
             } else
