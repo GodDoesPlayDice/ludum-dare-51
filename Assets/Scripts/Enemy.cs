@@ -151,7 +151,7 @@ public class Enemy : Character
         {
             IsAlive = true;
             StateManager.enabled = true;
-            GetComponent<Collider>().enabled = true;
+            GetComponent<Collider>().isTrigger = false;
             Agent.enabled = true;
             Agent.isStopped = false;
             tag = "Enemy";
@@ -159,7 +159,7 @@ public class Enemy : Character
         else
         {
             StateManager.enabled = false;
-            GetComponent<Collider>().enabled = false;
+            GetComponent<Collider>().isTrigger = true;
             if (Agent.enabled)
             {
                 Agent.isStopped = true;
