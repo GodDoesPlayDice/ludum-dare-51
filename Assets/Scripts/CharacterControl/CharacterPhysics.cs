@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+using Sound;
+using StarterAssets;
+using UnityEngine;
+using UnityEngine.SocialPlatforms;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -6,23 +9,30 @@ using UnityEngine.InputSystem;
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace StarterAssets
+namespace TPS
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : MonoBehaviour
+    public class CharacterPhysics : MonoBehaviour
     {
-        [Header("Player")]
-        [Tooltip("Move speed of the character in m/s")]
+        [Header("Player")] [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
+
+        [SerializeField] [Range(0, 1f)] private float directMovementBlend = 0.4f;
+        [SerializeField] [Range(0, 30f)] private float oneSecondSprintStaminaCost = 20f;
+
+        [field: SerializeField]
+        [field: Range(0, 50f)]
+        public float JumpStaminaCost { get; private set; } = 30f;
+
+        [SerializeField] [Range(0, 50f)] public float staminaRegenPerSecond = 5f;
 
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
-        [Tooltip("How fast the character turns to face movement direction")]
-        [Range(0.0f, 0.3f)]
+        [Tooltip("How fast the character turns to face movement direction")] [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
 
         [Tooltip("Acceleration and deceleration")]
@@ -32,8 +42,7 @@ namespace StarterAssets
         public AudioClip[] FootstepAudioClips;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
-        [Space(10)]
-        [Tooltip("The height the player can jump")]
+        [Space(10)] [Tooltip("The height the player can jump")]
         public float JumpHeight = 1.2f;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
@@ -50,8 +59,7 @@ namespace StarterAssets
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
 
-        [Tooltip("Useful for rough ground")]
-        public float GroundedOffset = -0.14f;
+        [Tooltip("Useful for rough ground")] public float GroundedOffset = -0.14f;
 
         [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
         public float GroundedRadius = 0.28f;
@@ -103,7 +111,7 @@ namespace StarterAssets
 #endif
         private Animator _animator;
         private CharacterController _controller;
-        private StarterAssetsInputs _input;
+        private InputActionsReceiver _input;
         private GameObject _mainCamera;
 
         private const float _threshold = 0.01f;
@@ -123,8 +131,22 @@ namespace StarterAssets
         }
 
 
+        #region OurVars
+
+        private Character _character;
+        private Stamina _stamina;
+        private bool _isMovementEnabled = true;
+        private float _directMoveDelay;
+
+        #endregion
+
+
         private void Awake()
         {
+            _character = GetComponent<Character>();
+            _stamina = GetComponent<Stamina>();
+            _character.OnIsAliveChange += isAlive => { _isMovementEnabled = isAlive; };
+
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -135,10 +157,10 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
-            _input = GetComponent<StarterAssetsInputs>();
+            _input = GetComponent<InputActionsReceiver>();
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
             _playerInput = GetComponent<PlayerInput>();
 #else
@@ -155,10 +177,12 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-
             JumpAndGravity();
             GroundedCheck();
             Move();
+
+            if (!(_input.sprint && _input.move != Vector2.zero))
+                _stamina.CurrentStamina += staminaRegenPerSecond * Time.deltaTime;
         }
 
         private void LateUpdate()
@@ -213,8 +237,10 @@ namespace StarterAssets
 
         private void Move()
         {
+            if (!_isMovementEnabled)
+                return;
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.sprint && _stamina.CurrentStamina > 0 ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -262,14 +288,32 @@ namespace StarterAssets
 
                 // rotate to face input direction relative to camera position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+
+                _directMoveDelay += Time.deltaTime;
+                if (_directMoveDelay > 1f)
+                    _directMoveDelay = 1f;
+
+                if (_input.sprint && _speed > MoveSpeed)
+                    _stamina.CurrentStamina -= oneSecondSprintStaminaCost * Time.deltaTime;
+            }
+            else
+            {
+                _directMoveDelay -= Time.deltaTime * 2f;
+                if (_directMoveDelay < -.2f)
+                    _directMoveDelay = -.2f;
             }
 
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            var directMovement = transform.forward;
+            targetDirection = Vector3.Lerp(targetDirection, directMovement, directMovementBlend * _directMoveDelay);
+
 
             // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            var moveVelocity = targetDirection.normalized * (_speed * Time.deltaTime) +
+                               new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime;
+            _character.Velocity = moveVelocity;
+            _controller.Move(moveVelocity);
 
             // update animator if using character
             if (_hasAnimator)
@@ -376,7 +420,9 @@ namespace StarterAssets
                 if (FootstepAudioClips.Length > 0)
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
-                    AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    SoundManager.Instance.PlaySfxAtPoint(FootstepAudioClips[index],
+                        transform.TransformPoint(_controller.center),
+                        FootstepAudioVolume);
                 }
             }
         }
@@ -385,8 +431,13 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                SoundManager.Instance.PlaySfxAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),
+                    FootstepAudioVolume);
             }
+        }
+
+        public void DisableMovement()
+        {
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PauseController : MonoBehaviour
 {
-    private StarterAssetsInputs _inputs;
+    private InputActionsReceiver _inputs;
     private PauseScreen _pauseScreen;
     private UpgradeMenuController _upgradeMenuController;
 
@@ -13,7 +13,7 @@ public class PauseController : MonoBehaviour
 
     private void Awake()
     {
-        _inputs = GetComponent<StarterAssetsInputs>();
+        _inputs = GetComponent<InputActionsReceiver>();
         _pauseScreen = GetComponentInChildren<PauseScreen>();
         _upgradeMenuController = GetComponentInChildren<UpgradeMenuController>();
     }
