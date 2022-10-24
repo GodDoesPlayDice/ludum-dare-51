@@ -13,6 +13,7 @@ namespace UI
         [SerializeField] private Slider staminaSlider;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TextMeshProUGUI healthText;
+        [SerializeField] private GameObject touchControls;
 
         [SerializeField] private Button pauseButton;
 
@@ -38,12 +39,16 @@ namespace UI
             _character.OnMaxHealthChange += UpdateMaxHealth;
             _stamina.OnCurrentStaminaChange += UpdateStamina;
             _stamina.OnMaxStaminaChange += UpdateMaxStamina;
-            
-            
-            pauseButton.onClick.AddListener(() =>
-            {
-                _pauseController.TogglePause(true, true);
-            });
+
+
+            pauseButton.onClick.AddListener(() => { _pauseController.TogglePause(true, true); });
+
+
+#if UNITY_ANDROID || UNITY_IOS
+            touchControls.SetActive(true);
+#else
+            touchControls.SetActive(false);
+#endif
         }
 
         public void ShowUpgradePanel()
