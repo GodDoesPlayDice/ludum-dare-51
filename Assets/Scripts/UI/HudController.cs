@@ -1,18 +1,18 @@
-using System;
-using DG.Tweening;
+using CharacterControl;
 using TMPro;
-using UI.Screens;
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
 {
     public class HudController : MonoBehaviour
     {
-        [SerializeField] private Slider staminaSlider;
+        [Header("Settings")] [SerializeField] private bool toggleTouchControlsOnDeviceChange = true;
+        [Header("Refs")] [SerializeField] private Slider staminaSlider;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TextMeshProUGUI healthText;
+        [SerializeField] private GameObject touchControls;
 
         [SerializeField] private Button pauseButton;
 
@@ -21,6 +21,7 @@ namespace UI
         private PauseController _pauseController;
 
         private UpgradeMenuController _upgradeMenu;
+        private InputDeviceEventsListener _deviceEventsListener;
 
         private void Awake()
         {
@@ -28,6 +29,7 @@ namespace UI
             _stamina = _character.GetComponent<Stamina>();
             _pauseController = _character.GetComponent<PauseController>();
             _upgradeMenu = _character.GetComponentInChildren<UpgradeMenuController>();
+            _deviceEventsListener = _character.GetComponent<InputDeviceEventsListener>();
 
             UpdateHealth(_character.Health);
             UpdateMaxHealth(_character.MaxHealth);
@@ -38,12 +40,16 @@ namespace UI
             _character.OnMaxHealthChange += UpdateMaxHealth;
             _stamina.OnCurrentStaminaChange += UpdateStamina;
             _stamina.OnMaxStaminaChange += UpdateMaxStamina;
-            
-            
-            pauseButton.onClick.AddListener(() =>
+
+
+            pauseButton.onClick.AddListener(() => { _pauseController.TogglePause(true, true); });
+            if (toggleTouchControlsOnDeviceChange)
             {
-                _pauseController.TogglePause(true, true);
-            });
+                _deviceEventsListener.OnInputDeviceChange += device =>
+                {
+                    touchControls.SetActive(device == Touchscreen.current);
+                };
+            }
         }
 
         public void ShowUpgradePanel()

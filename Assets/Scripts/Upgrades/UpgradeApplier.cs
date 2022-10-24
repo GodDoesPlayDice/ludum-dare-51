@@ -2,7 +2,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TPS;
+using CharacterControl;
 using UnityEngine;
 
 public class UpgradeApplier : MonoBehaviour

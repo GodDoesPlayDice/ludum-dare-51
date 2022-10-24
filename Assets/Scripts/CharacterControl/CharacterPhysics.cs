@@ -1,15 +1,11 @@
 using Sound;
-using StarterAssets;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
-#endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace TPS
+namespace CharacterControl
 {
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
