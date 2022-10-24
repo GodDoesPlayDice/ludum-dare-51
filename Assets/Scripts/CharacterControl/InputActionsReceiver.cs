@@ -1,4 +1,5 @@
 using StarterAssets;
+using TPS;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
@@ -18,7 +19,7 @@ public class InputActionsReceiver : MonoBehaviour
     [Header("Mouse Cursor Settings")] public bool cursorLocked = true;
     public bool cursorInputForLook = true;
     private Stamina _stamina;
-    private ThirdPersonController _tps;
+    private CharacterPhysics _tps;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
     public void OnMove(InputValue value)
@@ -47,7 +48,7 @@ public class InputActionsReceiver : MonoBehaviour
     public void OnJump(InputValue value)
     {
         // don't have time for better solution 
-        _tps ??= GetComponent<ThirdPersonController>();
+        _tps ??= GetComponent<CharacterPhysics>();
         _stamina ??= GetComponent<Stamina>();
         if (_stamina.CurrentStamina < _tps.JumpStaminaCost)
             JumpInput(false);

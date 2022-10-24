@@ -7,19 +7,18 @@ namespace StarterAssets
 {
     public class StarterAssetsInputs : MonoBehaviour
     {
-        [Header("Character Input Values")] public Vector2 move;
+        [Header("Character Input Values")]
+        public Vector2 move;
         public Vector2 look;
         public bool jump;
-        public bool esc;
-        public bool upgrades;
         public bool sprint;
 
-        [Header("Movement Settings")] public bool analogMovement;
+        [Header("Movement Settings")]
+        public bool analogMovement;
 
-        [Header("Mouse Cursor Settings")] public bool cursorLocked = true;
+        [Header("Mouse Cursor Settings")]
+        public bool cursorLocked = true;
         public bool cursorInputForLook = true;
-        private Stamina _stamina;
-        private ThirdPersonController _tps;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         public void OnMove(InputValue value)
@@ -29,35 +28,15 @@ namespace StarterAssets
 
         public void OnLook(InputValue value)
         {
-            if (cursorInputForLook)
+            if(cursorInputForLook)
             {
                 LookInput(value.Get<Vector2>());
             }
         }
 
-        public void OnEsc(InputValue value)
-        {
-            EscInput(value.isPressed);
-        }
-        public void OnUpgrades(InputValue value)
-        {
-            UpgradesInput(value.isPressed);
-        }
-
         public void OnJump(InputValue value)
         {
-            // don't have time for better solution 
-            _tps ??= GetComponent<ThirdPersonController>();
-            _stamina ??= GetComponent<Stamina>();
-            if (_stamina.CurrentStamina < _tps.JumpStaminaCost)
-                JumpInput(false);
-            else
-            {
-                if (value.isPressed)
-                    _stamina.CurrentStamina -= _tps.JumpStaminaCost;
-
-                JumpInput(value.isPressed);
-            }
+            JumpInput(value.isPressed);
         }
 
         public void OnSprint(InputValue value)
@@ -70,7 +49,7 @@ namespace StarterAssets
         public void MoveInput(Vector2 newMoveDirection)
         {
             move = newMoveDirection;
-        }
+        } 
 
         public void LookInput(Vector2 newLookDirection)
         {
@@ -82,15 +61,6 @@ namespace StarterAssets
             jump = newJumpState;
         }
 
-        private void EscInput(bool newEscState)
-        {
-            esc = newEscState;
-        }
-        private void UpgradesInput(bool newUpgradesState)
-        {
-            upgrades = newUpgradesState;
-        }
-
         public void SprintInput(bool newSprintState)
         {
             sprint = newSprintState;
@@ -98,7 +68,7 @@ namespace StarterAssets
 
         private void OnApplicationFocus(bool hasFocus)
         {
-            // SetCursorState(cursorLocked);
+            SetCursorState(cursorLocked);
         }
 
         private void SetCursorState(bool newState)
@@ -106,4 +76,5 @@ namespace StarterAssets
             Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
         }
     }
+	
 }
