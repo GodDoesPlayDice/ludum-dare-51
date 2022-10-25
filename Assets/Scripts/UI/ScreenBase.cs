@@ -3,26 +3,22 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Sound;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UI
 {
     public abstract class ScreenBase : MonoBehaviour
     {
-        [SerializeField] private ScreenGroup fullScreenGroup;
+        [FormerlySerializedAs("fullScreenGroup")] [SerializeField]
+        private ScreenGroup wholeScreenGroup;
+
         [SerializeField] private ScreenGroup backButtonGroup;
         [SerializeField] private List<ScreenGroup> screenGroups;
 
         protected virtual void Awake()
         {
-            // var backGroup = screenGroups.Find(group => group.GroupType == ScreenGroupTypes.Back);
-            // if (backGroup != null)
-            // {
-            //     TweenGroup(backGroup, false);
-            // }
-
             ShowGroup(ScreenGroupTypes.Main);
         }
-
 
         protected virtual void OnPlayClicked()
         {
@@ -47,18 +43,16 @@ namespace UI
             ShowGroup(ScreenGroupTypes.Main);
         }
 
-        public void ToggleFullScreen(bool isEnable)
+        public void ToggleWholeScreen(bool isEnable)
         {
-            if (fullScreenGroup == null)
+            if (wholeScreenGroup == null)
                 return;
-            if (isEnable && !fullScreenGroup.gameObject.activeSelf)
-                fullScreenGroup.gameObject.SetActive(true);
-            TweenGroup(fullScreenGroup, isEnable);
+            if (isEnable && !wholeScreenGroup.gameObject.activeSelf)
+                wholeScreenGroup.gameObject.SetActive(true);
+            TweenGroup(wholeScreenGroup, isEnable);
 
             if (isEnable)
-            {
                 ShowGroup(ScreenGroupTypes.Main);
-            }
         }
 
         protected void ShowGroup(ScreenGroupTypes groupType)

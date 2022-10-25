@@ -33,7 +33,7 @@ public class PauseController : MonoBehaviour
         _inputs.esc = false;
 
         if (showPauseScreen)
-            _pauseScreen.ToggleFullScreen(isPause);
+            _pauseScreen.ToggleWholeScreen(isPause);
         Time.timeScale = IsPaused ? 0f : 1f;
     }
 }

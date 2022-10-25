@@ -32,7 +32,7 @@ namespace UI.Screens
             _pauseController = _character.GetComponent<PauseController>();
 
             LoadingScreenController.Instance.OnShowEnded += () => { SceneManager.LoadScene(0); };
-            ToggleFullScreen(false);
+            ToggleWholeScreen(false);
         }
 
         private IEnumerator Start()

@@ -28,7 +28,7 @@ namespace UI.Screens
             _character = GetComponentInParent<Character>();
 
             LoadingScreenController.Instance.OnShowEnded += () => { SceneManager.LoadScene(_nextSceneIndex); };
-            ToggleFullScreen(false);
+            ToggleWholeScreen(false);
         }
 
 

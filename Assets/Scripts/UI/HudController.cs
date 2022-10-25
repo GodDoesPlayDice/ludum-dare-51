@@ -9,6 +9,9 @@ namespace UI
     public class HudController : MonoBehaviour
     {
         [Header("Settings")] [SerializeField] private bool toggleTouchControlsOnDeviceChange = true;
+
+        [SerializeField] private bool showControlsTutorial;
+
         [Header("Refs")] [SerializeField] private Slider staminaSlider;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private TextMeshProUGUI healthText;
@@ -22,6 +25,8 @@ namespace UI
 
         private UpgradeMenuController _upgradeMenu;
         private InputDeviceEventsListener _deviceEventsListener;
+
+        private bool _tutorialShown;
 
         private void Awake()
         {

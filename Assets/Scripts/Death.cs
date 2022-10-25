@@ -38,7 +38,7 @@ public class Death : MonoBehaviour
         else
         {
             var deathScreen = _character.GetComponentInChildren<DeathScreen>();
-            deathScreen.ToggleFullScreen(true);
+            deathScreen.ToggleWholeScreen(true);
         }
             
     }

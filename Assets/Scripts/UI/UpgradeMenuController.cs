@@ -1,7 +1,5 @@
-using System;
 using System.Linq;
 using CharacterControl;
-using StarterAssets;
 using UnityEngine;
 
 public class UpgradeMenuController : MonoBehaviour
